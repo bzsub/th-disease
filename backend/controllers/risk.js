@@ -10,9 +10,9 @@ const apiGetRisks = async (req, res) => {
 
 const apiSaveRisk = async (req, res) => {
     if ( !req.body.name || !req.body.description ) return res.sendStatus(400)
-    const rating = await RiskService.saveRisk(req.body)
-    if (!rating) return res.sendStatus(409) 
-    res.status(200).json(rating); 
+    const risk = await RiskService.saveRisk(req.body)
+    if (!risk) return res.sendStatus(409) 
+    res.status(200).json(risk); 
 }  
 
 const apiUpdateRisk = async (req, res) => {

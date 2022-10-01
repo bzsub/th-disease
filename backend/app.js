@@ -2,14 +2,16 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
-const diseaseRoutes = require("./routes/disease");
+
 const riskRoutes = require("./routes/risk");
+const symptomRoutes = require("./routes/symptom");
 
 app.use(cors());
 app.use(express.json()); 
 
-app.use("/api/disease", diseaseRoutes);
+
 app.use("/api/risk", riskRoutes);
+app.use("/api/symptom", symptomRoutes);
 
 
 module.exports = app;
