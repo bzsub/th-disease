@@ -1,9 +1,9 @@
 const Risk = require("../models/risk");
 
 
-const getRisks = async (search) => {
+const getRisks = async () => {
     try {
-        const risks = await Risk.find({"name":{ "$regex": search , "$options": "i" }});
+        const risks = await Risk.find({}, 'name');
         return risks;
     } catch (error) {
         console.log(`Could not get Risks ${ error }`)

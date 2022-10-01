@@ -1,5 +1,7 @@
 # DISEASE UI
 
+Ooops... If you're reading this the project isn't finished yet :/ . Gonna be ready tomorrow i swear :D. Have a nice day!
+
 This is a simple UI where you can assign risks and symptomps to disesases.
 
 ## Technologies Used

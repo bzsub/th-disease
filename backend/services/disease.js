@@ -1,14 +1,24 @@
 const Disease = require("../models/disease");
 
 
-const getDiseases = async (search) => {
+const getDiseases = async () => {
     try {
-        const diseases = await Disease.find({"name":{ "$regex": search, "$options": "i" }});
+        const diseases = await Disease.find({}, 'name');
         return diseases;
     } catch (error) {
         console.log(`Could not get diseases ${ error }`)
     }
 }
+
+const getOneDisease = async (disease_id) => {
+    try {
+        const disease = await Disease.findById(disease_id);
+        return disease;
+    } catch (error) {
+        console.log(`Could not get disease ${ error }`)
+    }
+}
+
 
 const saveDisease = async (diseaseData) => {
     try {
@@ -40,6 +50,7 @@ const deleteDisease = async (disease_id) => {
 
 module.exports = { 
     saveDisease,
+    getOneDisease,
     getDiseases,
     updateDisease,
     deleteDisease

@@ -3,9 +3,16 @@ const DiseaseService = require('../services/disease');
 
 
 const apiGetDiseases = async (req, res) => {
-    const diseases = await DiseaseService.getDiseases(req.query.search || "")
+    const diseases = await DiseaseService.getDiseases()
     if (!diseases) return res.sendStatus(400) 
     res.status(200).json(diseases);
+}   
+
+const apiGetOneDisease = async (req, res) => {
+    if( !mongoose.Types.ObjectId.isValid(req.params.disease_id) ) return res.sendStatus(400);
+    const disease = await DiseaseService.getOneDisease(req.params.disease_id)
+    if (!disease) return res.sendStatus(400) 
+    res.status(200).json(disease);
 }   
 
 const apiSaveDisease = async (req, res) => {
@@ -32,6 +39,7 @@ const apiDeleteDisease = async (req, res) => {
 
 module.exports = { 
     apiGetDiseases,
+    apiGetOneDisease,
     apiSaveDisease,
     apiUpdateDisease,
     apiDeleteDisease,

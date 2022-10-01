@@ -1,15 +1,16 @@
 const router = require("express").Router();
-// const auth = require("../middlewares/auth");
 const DiseaseControl = require("../controllers/disease");
 
 
 router.get("/", DiseaseControl.apiGetDiseases)
 
+router.get("/:disease_id", DiseaseControl.apiGetOneDisease)
+
 router.post("/", DiseaseControl.apiSaveDisease)
 
 router.patch("/:disease_id", DiseaseControl.apiUpdateDisease);
 
-router.delete("/:disease_id", DiseaseControl.apiDeleteDisease); // isDeleted: true ;)
+router.delete("/:disease_id", DiseaseControl.apiDeleteDisease);
 
 
 module.exports = router;

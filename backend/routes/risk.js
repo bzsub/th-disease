@@ -1,5 +1,4 @@
 const router = require("express").Router();
-// const auth = require("../middlewares/auth");
 const RiskControl = require("../controllers/risk");
 
 
@@ -9,7 +8,7 @@ router.post("/", RiskControl.apiSaveRisk)
 
 router.patch("/:risk_id", RiskControl.apiUpdateRisk);
 
-router.delete("/:risk_id", RiskControl.apiDeleteRisk); // isDeleted: true ;)
+router.delete("/:risk_id", RiskControl.apiDeleteRisk);
 
 
 module.exports = router;

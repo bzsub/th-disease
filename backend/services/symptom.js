@@ -1,9 +1,9 @@
 const Symptom = require("../models/symptom");
 
 
-const getSymptoms = async (search) => {
+const getSymptoms = async () => {
     try {
-        const symptoms = await Symptom.find({"name":{ "$regex": search, "$options": "i" }});
+        const symptoms = await Symptom.find({}, 'name'); //.find().distinct('name');
         return symptoms;
     } catch (error) {
         console.log(`Could not get symptoms ${ error }`)
