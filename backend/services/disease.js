@@ -21,6 +21,7 @@ const saveDisease = async (diseaseData) => {
 
 const updateDisease = async (disease_id, diseaseData) => {
     try {
+        
         const disease = await Disease.findOneAndUpdate({ "_id": disease_id}, diseaseData, { new: true });
         return disease;
     } catch (error) {

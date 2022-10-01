@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
-
 
 const diseaseSchema = new mongoose.Schema({
     name: { 
@@ -15,11 +13,9 @@ const diseaseSchema = new mongoose.Schema({
     },
     symptoms: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Symptom' }],
     risks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Risk' }],
-    // symptoms: [symptomSchema],
-    // risks: [riskFactorSchema],
 });
 
 
-const Disease = mongoose.model("Disease", diseaseSchema);
+const Disease = mongoose.model("Disease", diseaseSchema, "Disease");
 
 module.exports = Disease;

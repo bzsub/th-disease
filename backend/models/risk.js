@@ -14,6 +14,6 @@ const riskSchema = new mongoose.Schema({
     },
 });
 
-const Risk = mongoose.model("Risk", riskSchema);
+const Risk = mongoose.model("Risk", riskSchema, "Risk");
 
 module.exports = Risk;

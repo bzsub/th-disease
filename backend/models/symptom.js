@@ -14,6 +14,6 @@ const symptomSchema = new mongoose.Schema({
     },
 });
 
-const Symptom = mongoose.model("Symptom", symptomSchema);
+const Symptom = mongoose.model("Symptom", symptomSchema, "Symptom");
 
 module.exports = Symptom;
