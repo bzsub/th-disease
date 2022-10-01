@@ -3,7 +3,7 @@ const RiskService = require('../services/risk');
 
 
 const apiGetRisks = async (req, res) => {
-    const risks = await RiskService.getRisks()
+    const risks = await RiskService.getRisks(req.query.search || "")
     if (!risks) return res.sendStatus(400) 
     res.status(200).json(risks);
 }   

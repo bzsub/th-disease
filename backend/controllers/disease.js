@@ -3,7 +3,7 @@ const DiseaseService = require('../services/disease');
 
 
 const apiGetDiseases = async (req, res) => {
-    const diseases = await DiseaseService.getDiseases()
+    const diseases = await DiseaseService.getDiseases(req.query.search || "")
     if (!diseases) return res.sendStatus(400) 
     res.status(200).json(diseases);
 }   

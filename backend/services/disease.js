@@ -1,9 +1,9 @@
 const Disease = require("../models/disease");
 
 
-const getDiseases = async () => {
+const getDiseases = async (search) => {
     try {
-        const diseases = await Disease.find();
+        const diseases = await Disease.find({"name":{ "$regex": search, "$options": "i" }});
         return diseases;
     } catch (error) {
         console.log(`Could not get diseases ${ error }`)
@@ -21,7 +21,6 @@ const saveDisease = async (diseaseData) => {
 
 const updateDisease = async (disease_id, diseaseData) => {
     try {
-        
         const disease = await Disease.findOneAndUpdate({ "_id": disease_id}, diseaseData, { new: true });
         return disease;
     } catch (error) {

@@ -3,7 +3,7 @@ const SymptomService = require('../services/symptom');
 
 
 const apiGetSymptoms = async (req, res) => {
-    const symptomps = await SymptomService.getSymptoms()
+    const symptomps = await SymptomService.getSymptoms(req.query.search || "")
     if (!symptomps) return res.sendStatus(400) 
     res.status(200).json(symptomps);
 }   
