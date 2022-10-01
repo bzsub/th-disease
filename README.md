@@ -1,6 +1,6 @@
-# BIKE REPAIR SITE
+# DISEASE UI
 
-This is a basic UI where you can CRUD diseases, symptoms and risks.
+This is a simple UI where you can assign risks and symptomps to disesases.
 
 ## Technologies Used
 
@@ -36,6 +36,8 @@ For errorHandling I used Logflare :
 
 - LOGFLARE_SOURCE_ID={source-id}
 - LOGFLARE_API_KEY={api-key}
+
+If you dont want to use it just comment out line 19 in /backend/app.js
 
 ### Starting the app
 
