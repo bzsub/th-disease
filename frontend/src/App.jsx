@@ -3,6 +3,12 @@ import React, { useEffect, useState } from 'react'
 
 import { todoApi } from "./api/todoApi";
 
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
+
+import Disease from './pages/Disease';
+import Risk from './pages/Risk';
+import Symptom from './pages/Symptom';
+import Navbar from './components/Navbar';
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -34,48 +40,21 @@ function App() {
 
   useEffect(() => {
     getNamesOfDiseases()
+    //eslint-disable-next-line
   }, [])
   
   return (
     <>
-      
-      <Autocomplete
-        onChange={(event, value) => getDiseaseByName(value)}
-        options={diseaseList.map(disease => disease.name)}
-        renderInput={params => <TextField {...params} label="diseaseList"/> }
-      />
-
-      {
-        
-        selectedDisease && <Box sx={{marginTop:"8rem",padding:"2rem"}}>
-
-          <Typography variant="p" gutterBottom sx={{fontSize:"1.5rem"}}>
-            disease name: 
-          </Typography>
-          <Typography variant="h2" gutterBottom>
-          {selectedDisease.name}
-          </Typography>
-          <Typography variant="p" gutterBottom sx={{fontSize:"1.5rem"}}>
-            disease description: 
-          </Typography>
-          <Typography variant="h2" gutterBottom>
-          {selectedDisease.description}
-          </Typography>
-          
-          {
-            selectedDisease.risks.length > 0 && <>
-              <Typography variant="p" gutterBottom sx={{fontSize:"1.5rem"}}>
-                disease risk factors: 
-              </Typography>
-              {selectedDisease.risks.map((risk,id) => <li key={id}>{risk}</li>)}
-              </>
-          }
-        
-        </Box>
-      }
+      <Navbar />
+      <Routes>
+        <Route path="/disease" element={<Disease />} />
+        <Route path="/risk" element={<Risk />} />
+        <Route path="/symptom" element={<Symptom />} />
+      </Routes>
       
     </>
   );
 }
 
 export default App;
+
