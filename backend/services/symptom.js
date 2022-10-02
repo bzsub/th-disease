@@ -3,7 +3,7 @@ const Symptom = require("../models/symptom");
 
 const getSymptoms = async () => {
     try {
-        const symptoms = await Symptom.find({}, 'name'); //.find().distinct('name');
+        const symptoms = await Symptom.find(); //.find().distinct('name');
         return symptoms;
     } catch (error) {
         console.log(`Could not get symptoms ${ error }`)

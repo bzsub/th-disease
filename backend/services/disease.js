@@ -3,7 +3,7 @@ const Disease = require("../models/disease");
 
 const getDiseases = async () => {
     try {
-        const diseases = await Disease.find({}, 'name');
+        const diseases = await Disease.find();
         return diseases;
     } catch (error) {
         console.log(`Could not get diseases ${ error }`)

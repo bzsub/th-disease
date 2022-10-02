@@ -3,7 +3,7 @@ const Risk = require("../models/risk");
 
 const getRisks = async () => {
     try {
-        const risks = await Risk.find({}, 'name');
+        const risks = await Risk.find();
         return risks;
     } catch (error) {
         console.log(`Could not get Risks ${ error }`)
