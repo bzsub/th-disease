@@ -7,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from "@mui/material/Button";
@@ -20,6 +19,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import AddIcon from '@mui/icons-material/Add';
 
+import Dialog from '../components/Dialog'
 
 
 
@@ -123,10 +123,10 @@ const Risk = () => {
                                     <TextField value={inputDescription} onChange={e => setInputDescription(e.target.value)}/>
                                 </TableCell>
                                 <TableCell align="left" sx={{width:"1rem"}}>
-                                    <Button onClick={updateRisk}>save</Button>
+                                    <Button variant="outlined" onClick={updateRisk}>save</Button>
                                 </TableCell>
                                 <TableCell align="left" sx={{width:"1rem"}}>
-                                    <Button onClick={resetInputs}>cancel</Button>
+                                    <Button variant="outlined" onClick={resetInputs}>cancel</Button>
                                 </TableCell>
                             </> :
                             <>
@@ -137,10 +137,10 @@ const Risk = () => {
                                     {risk.description}
                                 </TableCell>
                                 <TableCell align="left" sx={{width:"1rem"}}>
-                                    <Button onClick={() => startInputs(risk)} disabled={inputId}>edit</Button>
+                                    <Button variant="outlined" onClick={() => startInputs(risk)} disabled={inputId}>edit</Button>
                                 </TableCell>
                                 <TableCell align="left" sx={{width:"1rem"}}>
-                                    <Button onClick={() => deleteRiskById(risk._id)}>delete</Button>
+                                    <Dialog buttonText={"delete"} alertText={"Are you sure you want to delete this symptom?"} onAccept={() => deleteRiskById(risk._id)}/>
                                 </TableCell>
                             </>
                         }
@@ -166,7 +166,7 @@ const Risk = () => {
                             </TableCell>
                             <TableCell align="left" sx={{width:"1rem"}}></TableCell>
                             <TableCell align="left" sx={{width:"1rem"}}>
-                                <Button onClick={saveNewRisk}>save</Button>
+                                <Button variant="outlined" onClick={saveNewRisk}>save</Button>
                             </TableCell>
                         </TableRow>
                     }                           

@@ -5,14 +5,12 @@ import Button from "@mui/material/Button";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import CloseIcon from '@mui/icons-material/Close';
 import SaveIcon from '@mui/icons-material/Save';
+import Dialog from '../components/Dialog'
 
-import { SuccessfulAlert, ErrorAlert } from "../utils/AlertMessages"
+import { ErrorAlert } from "../utils/AlertMessages"
 
 
 const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease, updateDisease, isItUpdateView, setIsSaveBlockViewable}) => {
@@ -27,11 +25,6 @@ const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease,
 
     const [searchRisk, setSearchRisk] = useState("")
     const [searchSymptom, setSearchSymptom] = useState("")
-
-    const resetInputs = () => {
-        setDiseaseName("")
-        setDiseaseDescription("")
-    }
     
     const addOneRisk = (riskName) => {
         if (!riskName) return ErrorAlert("Risk doesn't exist")
@@ -76,6 +69,7 @@ const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease,
         setDiseaseDescription(disease.description)
         setDiseaseRiskList(disease.risks.map(risk => risk.name))
         setDiseaseSymptomList(disease.symptoms.map(symptom => symptom.name))
+        //eslint-disable-next-line
     }, [])
     
 
@@ -197,13 +191,13 @@ const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease,
                 {
                     isItUpdateView ?
                     <>
-                        <Button variant="contained" onClick={() => handleUpdateDisease(disease._id)}>update</Button>
-                        <Button variant="contained" onClick={() => handleDeleteDisease(disease._id)}>delete</Button>
+                        <Button variant="outlined" onClick={() => handleUpdateDisease(disease._id)}>update</Button>
+                        <Dialog buttonText={"delete"} alertText={"Are you sure you want to delete this disease?"} onAccept={() => handleDeleteDisease(disease._id)}/>
                     </>
                     :
                     <>
-                        <Button variant="contained" onClick={handleSaveDisease}>save</Button>
-                        <Button variant="contained" onClick={()=>setIsSaveBlockViewable(false)}>cancel</Button>
+                        <Button variant="outlined" onClick={handleSaveDisease}>save</Button>
+                        <Button variant="outlined" onClick={()=>setIsSaveBlockViewable(false)}>cancel</Button>
                     </>
                 }
             </Box>

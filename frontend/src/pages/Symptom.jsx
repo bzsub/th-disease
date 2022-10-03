@@ -7,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from "@mui/material/Button";
@@ -20,6 +19,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import AddIcon from '@mui/icons-material/Add';
 
+import Dialog from '../components/Dialog'
 
 
 
@@ -123,10 +123,10 @@ const Symptom = () => {
                                     <TextField value={inputDescription} onChange={e => setInputDescription(e.target.value)}/>
                                 </TableCell>
                                 <TableCell align="left" sx={{width:"1rem"}}>
-                                    <Button onClick={updateSymptom}>save</Button>
+                                    <Button variant="outlined" onClick={updateSymptom}>save</Button>
                                 </TableCell>
                                 <TableCell align="left" sx={{width:"1rem"}}>
-                                    <Button onClick={resetInputs}>cancel</Button>
+                                    <Button variant="outlined" onClick={resetInputs}>cancel</Button>
                                 </TableCell>
                             </> :
                             <>
@@ -137,10 +137,10 @@ const Symptom = () => {
                                     {symptom.description}
                                 </TableCell>
                                 <TableCell align="left" sx={{width:"1rem"}}>
-                                    <Button onClick={() => startInputs(symptom)} disabled={inputId}>edit</Button>
+                                    <Button variant="outlined" onClick={() => startInputs(symptom)} disabled={inputId}>edit</Button>
                                 </TableCell>
                                 <TableCell align="left" sx={{width:"1rem"}}>
-                                    <Button onClick={() => deleteSymptomById(symptom._id)}>delete</Button>
+                                    <Dialog buttonText={"delete"} alertText={"Are you sure you want to delete this symptom?"} onAccept={() => deleteSymptomById(symptom._id)}/>
                                 </TableCell>
                             </>
                         }
@@ -166,7 +166,7 @@ const Symptom = () => {
                             </TableCell>
                             <TableCell align="left" sx={{width:"1rem"}}></TableCell>
                             <TableCell align="left" sx={{width:"1rem"}}>
-                                <Button onClick={saveNewSymptom}>save</Button>
+                                <Button variant="outlined" onClick={saveNewSymptom}>save</Button>
                             </TableCell>
                         </TableRow>
                     }                           

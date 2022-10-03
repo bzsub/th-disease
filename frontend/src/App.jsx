@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react'
 
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Disease from './pages/Disease';
 import Risk from './pages/Risk';

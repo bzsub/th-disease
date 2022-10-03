@@ -5,12 +5,12 @@ import { todoApi } from "../api/todoApi";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 import NewDisease from '../components/NewDisease';
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from "@mui/material/Button";
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Table from '@mui/material/Table';
@@ -94,7 +94,6 @@ const Disease = () => {
             className="container" 
             sx={{maxWidth:"1200px",padding:"8rem 0"}}
         >
-
             <Typography 
                 variant="h1" 
                 sx={{fontSize:"3rem",textAlign:"center"}}
