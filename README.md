@@ -1,7 +1,5 @@
 # DISEASE UI
 
-Ooops... If you're reading this the project isn't finished yet :/ . Gonna be ready tomorrow i swear :D. Have a nice day!
-
 This is a simple UI where you can assign risks and symptomps to disesases.
 
 ## Technologies Used
@@ -30,16 +28,11 @@ The frontend was made by React. To run it locally run these commands in the fron
 The backend directory contains the API code, using Express.js. Make a **.env** file in the backend directory with these values:
 
 - PORT={port}
-- APP_URL={url-of-frontend}
 - CONNECTION_STRING={mongo-connection-string}
-- SECRET_KEY={secret}
 
-For errorHandling I used Logflare :
-
-- LOGFLARE_SOURCE_ID={source-id}
-- LOGFLARE_API_KEY={api-key}
-
-If you dont want to use it just comment out line 19 in /backend/app.js
+for example:
+- PORT=8080
+- CONNECTION_STRING=mongodb://localhost:27017/disease
 
 ### Starting the app
 
