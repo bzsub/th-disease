@@ -175,7 +175,7 @@ const Symptom = () => {
             </TableContainer>
 
             <ToastContainer
-                position="bottom-center"
+                position="top-center"
                 autoClose={2000}
                 hideProgressBar={false}
                 newestOnTop={false}

@@ -29,7 +29,6 @@ const Disease = () => {
     const DATA_TYPE="Disease"
 
     const [diseaseList, setDiseaseList] = useState([])
-
     const [riskList, setRiskList] = useState([])
     const [symptomList, setSymptomList] = useState([])
 
@@ -61,7 +60,6 @@ const Disease = () => {
     } 
     
     const deleteDisease = async (disease_id) => {
-        console.log(disease_id);
         const response = await del(`/disease/${disease_id}`, DATA_TYPE)
         if (response.status === 200) getAllDiseases()
     }
@@ -134,7 +132,7 @@ const Disease = () => {
                     <TableBody>
                         {
                             diseaseList && diseaseList.slice(0, 10).filter(disease => disease.name.includes(searchDisease)).map((disease,id) => 
-                            <>
+                            <React.Fragment key={id}>
                                 <TableRow key={id}> 
                                     <TableCell align="center">
                                         {disease.name}
@@ -172,7 +170,7 @@ const Disease = () => {
                                         />
                                     </TableCell>                   
                                 </TableRow>} 
-                            </>                      
+                            </React.Fragment>                      
                         )}
 
                         <TableRow sx={{height:isSaveBlockViewable ? '200px' : 'auto'}}>
@@ -203,7 +201,7 @@ const Disease = () => {
             
                             
             <ToastContainer
-                position="top-right"
+                position="top-center"
                 autoClose={2000}
                 hideProgressBar={false}
                 newestOnTop={false}
