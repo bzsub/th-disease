@@ -12,8 +12,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import SaveIcon from '@mui/icons-material/Save';
 
+import { SuccessfulAlert, ErrorAlert } from "../utils/AlertMessages"
 
-const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease, updateDisease, isItUpdate, setIsSaveBlockViewable}) => {
+
+const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease, updateDisease, isItUpdateView, setIsSaveBlockViewable}) => {
 
     const [diseaseName, setDiseaseName] = useState("")
     const [diseaseDescription, setDiseaseDescription] = useState("")
@@ -32,7 +34,8 @@ const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease,
     }
     
     const addOneRisk = (riskName) => {
-        if (!riskName || diseaseRiskList.includes(riskName)) return;
+        if (!riskName) return ErrorAlert("Risk doesn't exist")
+        if (diseaseRiskList.includes(riskName)) return ErrorAlert("the disease already has that risk")
         setDiseaseRiskList([...diseaseRiskList,riskName])
     }
 
@@ -41,7 +44,8 @@ const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease,
     }
 
     const addOneSymptom = (symptomName) => {
-        if (!symptomName || diseaseSymptomList.includes(symptomName)) return;
+        if (!symptomName) return ErrorAlert("Symptom doens't exist")
+        if (diseaseSymptomList.includes(symptomName)) return ErrorAlert("the disease already has that symptom")
         setDiseaseSymptomList([...diseaseSymptomList,symptomName])
     }
     
@@ -78,120 +82,120 @@ const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease,
     return (
         <>
             <Box sx={{display:'flex',flexDirection:"column",justifyContent:"space-around"}}>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={2}>
 
-                    <Grid item xs={6}>
-                        <Typography 
-                            variant="p" 
-                            sx={{display:"flex",flexDirection: "column",fontSize:"1.2rem",margin:"0.5rem"}}
-                        >
-                            Name
-                        </Typography>
-                        <TextField 
-                            value={diseaseName} 
-                            onChange={e => setDiseaseName(e.target.value)} 
-                            sx={{width:'50%',margin:'0.5rem'}}
-                        />
-                    </Grid>
-                        
+                <Box sx={{ flexGrow: 1 }}>
 
-                    <Grid item xs={6}>
-                        <Typography 
-                            variant="p" 
-                            sx={{display:"flex",flexDirection: "column",fontSize:"1.2rem",margin:"0.5rem"}}
-                        >
-                            Description
-                        </Typography>
-                        <TextField 
-                            value={diseaseDescription} 
-                            onChange={e => setDiseaseDescription(e.target.value)} 
-                            sx={{width:'50%',margin:'0.5rem'}}
-                        />
-                    </Grid>
+                    <Grid container spacing={2}>
 
-
-                    <Grid item xs={6}>
-                        <Typography 
-                            variant="p" 
-                            sx={{display:"flex",flexDirection: "column",fontSize:"1.2rem",margin:"0.5rem"}}
-                        >
-                            Risks
-                        </Typography>
-                        <Grid container spacing={2}>
-                            <Grid item xs={10}>
-                                <Autocomplete
-                                    onChange={(event, value) => setFinalSearchRisk(value)}
-                                    options={riskList.map(risk => risk.name)}
-                                    renderInput={params => <TextField {...params} value={searchRisk} onChange={e => setSearchRisk(e.target.value)}/> }
-                                />
-                            </Grid>
-                            <Grid item xs={2} sx={{display:"flex", alignItems:"center"}}>
-                                <SaveIcon fontSize="large" sx={{cursor:"pointer"}} onClick={() => addOneRisk( finalSearchRisk )}/>
-                            </Grid>
+                        <Grid item xs={6}>
+                            <Typography 
+                                variant="p" 
+                                sx={{display:"flex",flexDirection: "column",fontSize:"1.2rem",margin:"0.5rem"}}
+                            >
+                                Name
+                            </Typography>
+                            <TextField 
+                                value={diseaseName} 
+                                onChange={e => setDiseaseName(e.target.value)} 
+                                sx={{width:'50%',margin:'0.5rem'}}
+                            />
                         </Grid>
-                        
+                            
 
-                        <Grid container spacing={2} sx={{my:2,ml:1}}>
-                            {
-                                diseaseRiskList.map((risk, id) => <>
-                                <Grid item xs={9} sx={{fontSize:"1.2rem",padding:"0.5rem",borderBottom:""}}>
-                                    {risk}
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <DeleteIcon sx={{cursor:"pointer"}} fontSize="small" onClick={() => deleteOneRisk(risk)}/>
-                                </Grid>
-                                </>)
-                            }
+                        <Grid item xs={6}>
+                            <Typography 
+                                variant="p" 
+                                sx={{display:"flex",flexDirection: "column",fontSize:"1.2rem",margin:"0.5rem"}}
+                            >
+                                Description
+                            </Typography>
+                            <TextField 
+                                value={diseaseDescription} 
+                                onChange={e => setDiseaseDescription(e.target.value)} 
+                                sx={{width:'50%',margin:'0.5rem'}}
+                            />
                         </Grid>
-                        
-                    </Grid>
 
 
-                    <Grid item xs={6}>
-                        <Typography 
-                            variant="p" 
-                            sx={{display:"flex",flexDirection: "column",fontSize:"1.2rem",margin:"0.5rem"}}
-                        >
-                            Symptoms
-                        </Typography> 
-                        <Grid container spacing={2}>
-                            <Grid item xs={10}>
-                                <Autocomplete
-                                    onChange={(event, value) => setFinalSearchSymptom(value)}
-                                    options={symptomList.map(symptom => symptom.name)}
-                                    renderInput={params => <TextField {...params} value={searchSymptom} onChange={e => setSearchSymptom(e.target.value)}/> }
-                                />
+                        <Grid item xs={6}>
+                            <Typography 
+                                variant="p" 
+                                sx={{display:"flex",flexDirection: "column",fontSize:"1.2rem",margin:"0.5rem"}}
+                            >
+                                Risks
+                            </Typography>
+                            <Grid container spacing={2}>
+                                <Grid item xs={10}>
+                                    <Autocomplete
+                                        onChange={(event, value) => setFinalSearchRisk(value)}
+                                        options={riskList.map(risk => risk.name)}
+                                        renderInput={params => <TextField {...params} value={searchRisk} onChange={e => setSearchRisk(e.target.value)}/> }
+                                    />
+                                </Grid>
+                                <Grid item xs={2} sx={{display:"flex", alignItems:"center"}}>
+                                    <SaveIcon fontSize="large" sx={{cursor:"pointer"}} onClick={() => addOneRisk( finalSearchRisk )}/>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={2} sx={{display:"flex", alignItems:"center"}}>
-                                <SaveIcon sx={{cursor:"pointer"}} fontSize="large" onClick={() => addOneSymptom( finalSearchSymptom )}/>
-                            </Grid>
-                        </Grid>   
-                        <Grid container spacing={2} sx={{my:2,ml:1}}>
-                        
-                            {
-                                diseaseSymptomList.map((symptom, id) => <>
+                            
+
+                            <Grid container spacing={2} sx={{my:2,ml:1}}>
+                                {
+                                    diseaseRiskList.map((risk, id) => <>
                                     <Grid item xs={9} sx={{fontSize:"1.2rem",padding:"0.5rem",borderBottom:""}}>
-                                        {symptom}
+                                        {risk}
                                     </Grid>
                                     <Grid item xs={3}>
-                                        <DeleteIcon sx={{cursor:"pointer"}} fontSize="small" onClick={() => deleteOneSymptom(symptom)}/>
+                                        <DeleteIcon sx={{cursor:"pointer"}} fontSize="small" onClick={() => deleteOneRisk(risk)}/>
                                     </Grid>
-                                </>)
-                            }
+                                    </>)
+                                }
+                            </Grid>
+                            
                         </Grid>
-                        
+
+
+                        <Grid item xs={6}>
+                            <Typography 
+                                variant="p" 
+                                sx={{display:"flex",flexDirection: "column",fontSize:"1.2rem",margin:"0.5rem"}}
+                            >
+                                Symptoms
+                            </Typography> 
+                            <Grid container spacing={2}>
+                                <Grid item xs={10}>
+                                    <Autocomplete
+                                        onChange={(event, value) => setFinalSearchSymptom(value)}
+                                        options={symptomList.map(symptom => symptom.name)}
+                                        renderInput={params => <TextField {...params} value={searchSymptom} onChange={e => setSearchSymptom(e.target.value)}/> }
+                                    />
+                                </Grid>
+                                <Grid item xs={2} sx={{display:"flex", alignItems:"center"}}>
+                                    <SaveIcon sx={{cursor:"pointer"}} fontSize="large" onClick={() => addOneSymptom( finalSearchSymptom )}/>
+                                </Grid>
+                            </Grid>   
+                            <Grid container spacing={2} sx={{my:2,ml:1}}>
+                            
+                                {
+                                    diseaseSymptomList.map((symptom, id) => <>
+                                        <Grid item xs={9} sx={{fontSize:"1.2rem",padding:"0.5rem",borderBottom:""}}>
+                                            {symptom}
+                                        </Grid>
+                                        <Grid item xs={3}>
+                                            <DeleteIcon sx={{cursor:"pointer"}} fontSize="small" onClick={() => deleteOneSymptom(symptom)}/>
+                                        </Grid>
+                                    </>)
+                                }
+                            </Grid>
+                            
+                        </Grid>
                     </Grid>
-                </Grid>
+                </Box>
             </Box>
-                
 
-            
 
-            </Box>
             <Box sx={{display:"flex",flexDirection:"row",justifyContent:"center"}}>
                 {
-                    isItUpdate ?
+                    isItUpdateView ?
                     <>
                         <Button variant="contained" onClick={() => handleUpdateDisease(disease._id)}>update</Button>
                         <Button variant="contained" onClick={() => handleDeleteDisease(disease._id)}>delete</Button>

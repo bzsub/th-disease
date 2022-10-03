@@ -18,6 +18,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import AddIcon from '@mui/icons-material/Add';
+
 
 
 
@@ -82,27 +84,27 @@ const Symptom = () => {
     
 
     return (
-        <Container className="container">
+        <Container sx={{maxWidth:"1200px",padding:"8rem 0"}}>
 
-            <Typography variant="h1" className="main-header">
+            <Typography variant="h1" sx={{fontSize:"3rem",textAlign:"center"}}>
                     Symptoms 
             </Typography>
 
             <Autocomplete
                 onChange={(event, value) => setSearch(value)}
-                className="main-search"
+                sx={{width:"50%",margin:"3rem auto 0"}}
                 options={symptomList.map(disease => disease.name)}
                 renderInput={params => <TextField {...params} label="search for a symptom" value={search} onChange={e => setSearch(e.target.value)}/> }
             />
         
-            <TableContainer component={Paper} className="table">
+            <TableContainer component={Paper} sx={{marginTop:"3rem"}}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow >
-                            <TableCell sx={{fontWeight:"600"}}>name</TableCell>
-                            <TableCell align="left" sx={{fontWeight:"600"}}>description</TableCell>
-                            <TableCell align="left"></TableCell>
-                            <TableCell align="left"></TableCell>
+                            <TableCell sx={{textTransform: "uppercase",borderBottom:"2px solid black",fontSize:"1.2rem",fontWeight:"600",textAlign:"left"}}>name</TableCell>
+                            <TableCell sx={{textTransform: "uppercase",borderBottom:"2px solid black",fontSize:"1.2rem",fontWeight:"600",textAlign:"left"}}>description</TableCell>
+                            <TableCell sx={{width:"3rem",borderBottom:"2px solid black"}}></TableCell>
+                            <TableCell sx={{width:"3rem",borderBottom:"2px solid black"}}></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -150,7 +152,7 @@ const Symptom = () => {
                         <TableRow>
 
                             <TableCell colspan="4" style={{ "text-align": "center" }}>
-                                <Button onClick={resetInputs}>add</Button>
+                                <AddIcon sx={{fontSize:"3rem",border:"3px solid black", borderRadius:"50%"}} onClick={resetInputs}/>
                             </TableCell>
                             
                         </TableRow> 

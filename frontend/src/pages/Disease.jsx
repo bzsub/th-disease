@@ -168,17 +168,17 @@ const Disease = () => {
                                             saveDisease={saveDisease}
                                             deleteDisease={deleteDisease} 
                                             updateDisease={updateDisease}
-                                            isItUpdate={true}
+                                            isItUpdateView={true}
                                         />
                                     </TableCell>                   
                                 </TableRow>} 
                             </>                      
                         )}
 
-                        <TableRow key={"diseaseSaveRow"} sx={{height:isSaveBlockViewable ? '200px' : 'auto'}}>
+                        <TableRow sx={{height:isSaveBlockViewable ? '200px' : 'auto'}}>
                             {
                                 isSaveBlockViewable ? 
-                                <TableCell key={"diseaseSaveCell"} colSpan="5">
+                                <TableCell colSpan="5">
                                     <NewDisease 
                                         disease={{name:"",description:"",risks:[], symptoms:[]}} 
                                         riskList={riskList} 
@@ -186,12 +186,12 @@ const Disease = () => {
                                         saveDisease={saveDisease}
                                         deleteDisease={deleteDisease} 
                                         updateDisease={updateDisease}
-                                        isItUpdate={false}
+                                        isItUpdateView={false}
                                         setIsSaveBlockViewable={setIsSaveBlockViewable}
                                     />
                                 </TableCell>
                                 : 
-                                <TableCell key={"diseaseSaveCell2"} colSpan="5" sx={{textAlign:"center"}} onClick={()=>setIsSaveBlockViewable(true)}>
+                                <TableCell colSpan="5" sx={{textAlign:"center"}} onClick={()=>setIsSaveBlockViewable(true)}>
                                     <AddIcon sx={{fontSize:"3rem",border:"3px solid black", borderRadius:"50%"}}/>
                                 </TableCell>
                             
@@ -203,7 +203,7 @@ const Disease = () => {
             
                             
             <ToastContainer
-                position="bottom-center"
+                position="top-right"
                 autoClose={2000}
                 hideProgressBar={false}
                 newestOnTop={false}

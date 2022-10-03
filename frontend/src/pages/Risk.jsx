@@ -18,6 +18,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import AddIcon from '@mui/icons-material/Add';
+
 
 
 
@@ -82,27 +84,27 @@ const Risk = () => {
     
 
     return (
-        <Container className="container">
+        <Container sx={{maxWidth:"1200px",padding:"8rem 0"}}>
 
-            <Typography variant="h1" className="main-header">
+            <Typography variant="h1" sx={{fontSize:"3rem",textAlign:"center"}}>
                     Risks 
             </Typography>
 
             <Autocomplete
                 onChange={(event, value) => setSearch(value)}
-                className="main-search"
+                sx={{width:"50%",margin:"3rem auto 0"}}
                 options={riskList.map(disease => disease.name)}
                 renderInput={params => <TextField {...params} label="search for a risk" value={search} onChange={e => setSearch(e.target.value)}/> }
             />
         
-            <TableContainer component={Paper} className="table">
+            <TableContainer component={Paper} sx={{marginTop:"3rem"}}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>name</TableCell>
-                            <TableCell sx={{fontWeight:"600", textAlign:"center"}}>description</TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                            <TableCell sx={{textTransform: "uppercase",borderBottom:"2px solid black",fontSize:"1.2rem",fontWeight:"600",textAlign:"left"}}>name</TableCell>
+                            <TableCell sx={{textTransform: "uppercase",borderBottom:"2px solid black",fontSize:"1.2rem",fontWeight:"600",textAlign:"left"}}>description</TableCell>
+                            <TableCell sx={{width:"3rem",borderBottom:"2px solid black"}}></TableCell>
+                            <TableCell sx={{width:"3rem",borderBottom:"2px solid black"}}></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -114,7 +116,7 @@ const Risk = () => {
                         {
                             inputId === risk._id ? 
                             <>
-                                <TableCell component="th" scope="row">
+                                <TableCell align="left">
                                     <TextField value={inputName} onChange={e => setInputName(e.target.value)} />
                                 </TableCell>
                                 <TableCell align="left">
@@ -128,7 +130,7 @@ const Risk = () => {
                                 </TableCell>
                             </> :
                             <>
-                                <TableCell component="th" scope="row">
+                                <TableCell align="left">
                                     {risk.name}
                                 </TableCell>
                                 <TableCell align="left">
@@ -150,7 +152,7 @@ const Risk = () => {
                         <TableRow>
 
                             <TableCell colspan="4" style={{ "text-align": "center" }}>
-                                <Button onClick={resetInputs}>add</Button>
+                                <AddIcon sx={{fontSize:"3rem",border:"3px solid black", borderRadius:"50%"}} onClick={resetInputs}/>
                             </TableCell>
                             
                         </TableRow> 
