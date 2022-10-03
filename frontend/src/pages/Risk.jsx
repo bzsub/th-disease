@@ -82,27 +82,27 @@ const Risk = () => {
     
 
     return (
-        <Container sx={{padding:"8rem 0 0",height:"100vh",minWidth:"100vw", backgroundColor:"#f0f2f5"}}>
+        <Container className="container">
 
-            <Typography variant="h1" gutterBottom sx={{fontSize:"1.5rem",margin:"0 0 1rem",textAlign:"center"}}>
+            <Typography variant="h1" className="main-header">
                     Risks 
             </Typography>
 
             <Autocomplete
                 onChange={(event, value) => setSearch(value)}
-                sx={{margin:"1rem auto 2rem"}}
+                className="main-search"
                 options={riskList.map(disease => disease.name)}
-                renderInput={params => <TextField {...params} label="risks" value={search} onChange={e => setSearch(e.target.value)}/> }
+                renderInput={params => <TextField {...params} label="search for a risk" value={search} onChange={e => setSearch(e.target.value)}/> }
             />
         
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} className="table">
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
-                        <TableRow >
-                            <TableCell sx={{fontWeight:"600"}}>name</TableCell>
-                            <TableCell align="left" sx={{fontWeight:"600"}}>description</TableCell>
-                            <TableCell align="left"></TableCell>
-                            <TableCell align="left"></TableCell>
+                        <TableRow>
+                            <TableCell>name</TableCell>
+                            <TableCell sx={{fontWeight:"600", textAlign:"center"}}>description</TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

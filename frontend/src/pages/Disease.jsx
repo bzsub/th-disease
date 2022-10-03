@@ -20,7 +20,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+import AddIcon from '@mui/icons-material/Add';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const Disease = () => {
     // constant for the alert message
@@ -90,102 +92,116 @@ const Disease = () => {
     
 
     return (
-        <Container sx={{padding:"8rem 0 0",height:"100vh",minWidth:"100vw", backgroundColor:"#f0f2f5"}}>
+        <Container 
+            className="container" 
+            sx={{maxWidth:"1200px",padding:"8rem 0"}}
+        >
 
-            <Typography variant="h1" gutterBottom sx={{fontSize:"1.5rem",margin:"0 0 1rem",textAlign:"center"}}>
+            <Typography 
+                variant="h1" 
+                sx={{fontSize:"3rem",textAlign:"center"}}
+            >
                     Diseases 
             </Typography>
+
             <Autocomplete
                 onChange={(event, value) => setSearchDisease(value)}
-                sx={{margin:"1rem auto 2rem"}}
+                sx={{width:"50%",margin:"3rem auto 0"}}
                 options={diseaseList.map(disease => disease.name)}
-                renderInput={params => <TextField {...params} label="diseases" value={searchDisease} onChange={e => setSearchDisease(e.target.value)}/> }
+                renderInput={params => 
+                    <TextField 
+                        {...params} 
+                        label="search for a disease" 
+                        value={searchDisease} 
+                        onChange={e => setSearchDisease(e.target.value)}
+                    /> 
+                }
             />
         
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableContainer component={Paper} sx={{marginTop:"3rem"}}>
+                <Table aria-label="simple table">
+
                     <TableHead>
                         <TableRow>
-                            <TableCell align="left" sx={{fontWeight:"600"}}>name</TableCell>
-                            <TableCell align="left" sx={{fontWeight:"600"}}>description</TableCell>
-                            <TableCell align="left" sx={{fontWeight:"600"}}>risk factors</TableCell>
-                            <TableCell align="left" sx={{fontWeight:"600"}}>symptoms</TableCell>
-                            <TableCell align="left"></TableCell>
+                            <TableCell sx={{textTransform: "uppercase",borderBottom:"2px solid black",fontSize:"1.2rem",fontWeight:"600",textAlign:"center"}}>name</TableCell>
+                            <TableCell sx={{textTransform: "uppercase",borderBottom:"2px solid black",fontSize:"1.2rem",fontWeight:"600",textAlign:"center"}}>description</TableCell>
+                            <TableCell sx={{textTransform: "uppercase",borderBottom:"2px solid black",fontSize:"1.2rem",fontWeight:"600",textAlign:"center"}}>risk factors</TableCell>
+                            <TableCell sx={{textTransform: "uppercase",borderBottom:"2px solid black",fontSize:"1.2rem",fontWeight:"600",textAlign:"center"}}>symptoms</TableCell>
+                            <TableCell sx={{borderBottom:"2px solid black",width:"3rem",textAlign:"center"}}></TableCell>
                         </TableRow>
                     </TableHead>
+
                     <TableBody>
-                    {
-                        diseaseList && diseaseList.slice(0, 10).filter(disease => disease.name.includes(searchDisease)).map((disease,id) => (
-                        <>
-                            <TableRow key={id}> 
-                                <TableCell align="left" component="th" scope="row">
-                                    {disease.name}
-                                </TableCell>
-                                <TableCell align="left">
-                                    {disease.description}
-                                </TableCell>
-                                <TableCell align="left">
-                                    {disease.risks.length} risks
-                                </TableCell>
-                                <TableCell align="left">
-                                    {disease.symptoms.length} symptoms
-                                </TableCell>
-                                <TableCell align="left">
-                                    <Button onClick={() => toggleView(disease.name, disease.toggleView)}>                                 
-                                        Edit
-                                    </Button>
-                                </TableCell>   
-                            </TableRow> 
-                            {disease.toggleView && <TableRow key={id+"toggle"} sx={{height:'200px'}}> 
-                                <TableCell colSpan="5">
+                        {
+                            diseaseList && diseaseList.slice(0, 10).filter(disease => disease.name.includes(searchDisease)).map((disease,id) => 
+                            <>
+                                <TableRow key={id}> 
+                                    <TableCell align="center">
+                                        {disease.name}
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        {disease.description}
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        {disease.risks.length} risks
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        {disease.symptoms.length} symptoms
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <Button onClick={() => toggleView(disease.name, disease.toggleView)}>                                 
+                                            {
+                                                disease.toggleView ?
+                                                <KeyboardArrowUpIcon/>
+                                                :
+                                                <KeyboardArrowDownIcon/>
+                                            }
+                                        </Button>
+                                    </TableCell>   
+                                </TableRow> 
+                                {disease.toggleView && <TableRow key={id+"toggle"} sx={{height:'200px'}}> 
+                                    <TableCell colSpan="5">
+                                        <NewDisease 
+                                            disease={disease} 
+                                            riskList={riskList} 
+                                            symptomList={symptomList}
+                                            saveDisease={saveDisease}
+                                            deleteDisease={deleteDisease} 
+                                            updateDisease={updateDisease}
+                                            isItUpdate={true}
+                                        />
+                                    </TableCell>                   
+                                </TableRow>} 
+                            </>                      
+                        )}
+
+                        <TableRow key={"diseaseSaveRow"} sx={{height:isSaveBlockViewable ? '200px' : 'auto'}}>
+                            {
+                                isSaveBlockViewable ? 
+                                <TableCell key={"diseaseSaveCell"} colSpan="5">
                                     <NewDisease 
-                                        disease={disease} 
+                                        disease={{name:"",description:"",risks:[], symptoms:[]}} 
                                         riskList={riskList} 
                                         symptomList={symptomList}
                                         saveDisease={saveDisease}
                                         deleteDisease={deleteDisease} 
                                         updateDisease={updateDisease}
-                                        isItUpdate={true}
+                                        isItUpdate={false}
+                                        setIsSaveBlockViewable={setIsSaveBlockViewable}
                                     />
-                                </TableCell>                   
-                            </TableRow>} 
-                        </>                      
-                    ))}
-
-                    <TableRow key={"diseaseSaveRow"} sx={{height:isSaveBlockViewable ? '200px' : 'auto'}}>
-                        {
-                            isSaveBlockViewable ? 
-                            <TableCell key={"diseaseSaveCell"} colSpan="5">
-                                <NewDisease 
-                                    disease={{name:"",description:"",risks:[], symptoms:[]}} 
-                                    riskList={riskList} 
-                                    symptomList={symptomList}
-                                    saveDisease={saveDisease}
-                                    deleteDisease={deleteDisease} 
-                                    updateDisease={updateDisease}
-                                    isItUpdate={false}
-                                    setIsSaveBlockViewable={setIsSaveBlockViewable}
-                                />
-                            </TableCell>
-                            :
-                            <>
-                                <TableCell key={"diseaseSaveCell"} colSpan="4"></TableCell>
-                                <TableCell key={"diseaseSaveCell"} onClick={()=>setIsSaveBlockViewable(true)}>
-                                    <Button>New</Button>
                                 </TableCell>
-                            </> 
-                        }
-                    </TableRow>
-                    
-                    
-                    
-                                     
+                                : 
+                                <TableCell key={"diseaseSaveCell2"} colSpan="5" sx={{textAlign:"center"}} onClick={()=>setIsSaveBlockViewable(true)}>
+                                    <AddIcon sx={{fontSize:"3rem",border:"3px solid black", borderRadius:"50%"}}/>
+                                </TableCell>
+                            
+                            }
+                        </TableRow>   
                     </TableBody>
                 </Table>
             </TableContainer>
             
-           
-
+                            
             <ToastContainer
                 position="bottom-center"
                 autoClose={2000}
