@@ -42,7 +42,7 @@ const Risk = () => {
     }
 
     const saveNewRisk = async () => {
-        const response = await post(`/risk`, {name:inputName,description:inputDescription}, DATA_TYPE)
+        const response = await post(`/risk`, {name:inputName, description:inputDescription}, DATA_TYPE)
         if (response.status === 200) {
             getAllRisks()
             resetInputs()
@@ -55,7 +55,7 @@ const Risk = () => {
     }
 
     const updateRisk = async () => { 
-        const response = await update(`/risk/${inputId}`, {name:inputName, description: inputDescription}, DATA_TYPE)
+        const response = await update(`/risk/${inputId}`, {name:inputName, description:inputDescription}, DATA_TYPE)
         if (response.status === 200) {
             resetInputs()
             getAllRisks()
@@ -120,10 +120,10 @@ const Risk = () => {
                                 <TableCell align="left">
                                     <TextField value={inputDescription} onChange={e => setInputDescription(e.target.value)}/>
                                 </TableCell>
-                                <TableCell align="left" sx={{width:"20px"}}>
+                                <TableCell align="left" sx={{width:"1rem"}}>
                                     <Button onClick={updateRisk}>save</Button>
                                 </TableCell>
-                                <TableCell align="left" sx={{width:"20px"}}>
+                                <TableCell align="left" sx={{width:"1rem"}}>
                                     <Button onClick={resetInputs}>cancel</Button>
                                 </TableCell>
                             </> :
@@ -134,10 +134,10 @@ const Risk = () => {
                                 <TableCell align="left">
                                     {risk.description}
                                 </TableCell>
-                                <TableCell align="left" sx={{width:"20px"}}>
+                                <TableCell align="left" sx={{width:"1rem"}}>
                                     <Button onClick={() => startInputs(risk)} disabled={inputId}>edit</Button>
                                 </TableCell>
-                                <TableCell align="left" sx={{width:"20px"}}>
+                                <TableCell align="left" sx={{width:"1rem"}}>
                                     <Button onClick={() => deleteRiskById(risk._id)}>delete</Button>
                                 </TableCell>
                             </>
@@ -150,7 +150,7 @@ const Risk = () => {
                         <TableRow>
 
                             <TableCell colspan="4" style={{ "text-align": "center" }}>
-                                <Button onClick={resetInputs}>click</Button>
+                                <Button onClick={resetInputs}>add</Button>
                             </TableCell>
                             
                         </TableRow> 
@@ -162,8 +162,8 @@ const Risk = () => {
                             <TableCell align="left">
                                 <TextField value={inputDescription} onChange={e => setInputDescription(e.target.value)}/>
                             </TableCell>
-                            <TableCell align="left" sx={{width:"20px"}}></TableCell>
-                            <TableCell align="left" sx={{width:"20px"}}>
+                            <TableCell align="left" sx={{width:"1rem"}}></TableCell>
+                            <TableCell align="left" sx={{width:"1rem"}}>
                                 <Button onClick={saveNewRisk}>save</Button>
                             </TableCell>
                         </TableRow>

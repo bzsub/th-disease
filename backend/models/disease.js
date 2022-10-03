@@ -11,11 +11,11 @@ const diseaseSchema = new mongoose.Schema({
         required: false, 
         unique: true 
     },
-    symptoms: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Symptom' }],
-    risks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Risk' }],
+    symptoms: [{ type: mongoose.Schema.Types.ObjectId, ref: "Symptom" }],
+    risks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Risk" }],
 });
 
 
-const Disease = mongoose.model("Disease", diseaseSchema, "Disease");
+const Disease = mongoose.model("Disease", diseaseSchema);
 
 module.exports = Disease;

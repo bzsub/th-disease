@@ -1,7 +1,5 @@
 import './App.css';
-import React, { useEffect, useState } from 'react'
-
-import { todoApi } from "./api/todoApi";
+import React from 'react'
 
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 
@@ -10,13 +8,6 @@ import Risk from './pages/Risk';
 import Symptom from './pages/Symptom';
 import Navbar from './components/Navbar';
 
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-
-
-
 function App() {
   
   
@@ -24,7 +15,7 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/disease" element={<Disease />} />
+        <Route path="/" element={<Disease />} />
         <Route path="/risk" element={<Risk />} />
         <Route path="/symptom" element={<Symptom />} />
       </Routes>

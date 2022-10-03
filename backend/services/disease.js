@@ -10,20 +10,10 @@ const getDiseases = async () => {
     }
 }
 
-const getOneDisease = async (disease_id) => {
-    try {
-        const disease = await Disease.findById(disease_id);
-        return disease;
-    } catch (error) {
-        console.log(`Could not get disease ${ error }`)
-    }
-}
-
-
 const saveDisease = async (diseaseData) => {
     try {
         const disease = await Disease.create(diseaseData);
-        return disease;disease
+        return disease;
     } catch (error) {
         console.log(`Could not save disease ${ error }`)
     }
@@ -47,11 +37,50 @@ const deleteDisease = async (disease_id) => {
     }
 }
 
+// const addOneRisk = async (disease_id, risk_id) => {
+//     try {
+//         const response = await Disease.findByIdAndUpdate({_id: disease_id}, { $addToSet: { risks: risk_id } });
+//         return response
+//     } catch (error) {
+//         console.log(`Could not update disease ${ error }`)
+//     }
+// }
+
+// const addOneSymptom = async (disease_id, symptom_id) => {
+//     try {
+//         const response = await Disease.findByIdAndUpdate({_id: disease_id}, { $addToSet: { symptoms: symptom_id } });
+//         return response
+//     } catch (error) {
+//         console.log(`Could not update disease ${ error }`)
+//     }
+// }
+
+// const deleteOneRisk = async (disease_id, risk_id) => {
+//     try {
+//         const disease = await Disease.findByIdAndUpdate({ "_id": disease_id },{ $pull: { risks: risk_id }})
+//         return disease;
+//     } catch (error) {
+//         console.log(`Could not delete disease ${ error }`)
+//     }
+// }
+
+// const deleteOneSymptom = async (disease_id, symptom_id) => {
+//     try {
+//         const disease = await Disease.findByIdAndUpdate({ "_id": disease_id },{ $pull: { symptoms: symptom_id }})
+//         return disease;
+//     } catch (error) {
+//         console.log(`Could not delete disease ${ error }`)
+//     }
+// }
+
 
 module.exports = { 
-    saveDisease,
-    getOneDisease,
     getDiseases,
+    saveDisease,
     updateDisease,
-    deleteDisease
+    deleteDisease,
+    // addOneRisk,
+    // addOneSymptom,
+    // deleteOneRisk,
+    // deleteOneSymptom,
 }

@@ -20,7 +20,7 @@ const Navbar = () => {
             flexDirection:"row"
             }}
         >
-            <Button onClick={() => navigate("/disease")}>disease</Button>
+            <Button onClick={() => navigate("/")}>disease</Button>
             <Button onClick={() => navigate("/risk")}>risk</Button>
             <Button onClick={() => navigate("/symptom")}>symptom</Button>
 
