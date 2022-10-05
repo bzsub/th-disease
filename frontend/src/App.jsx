@@ -21,7 +21,9 @@ function App() {
   
   return (
     <>
+
       <Navbar />
+
       <Routes>
         <Route path="/diseases" element={<Disease />} />
         <Route path="/risks" element={<Risk />} />
@@ -30,6 +32,7 @@ function App() {
         <Route path="/login" element={<LogIn />} />
         <Route path="/" element={<Home />} />
       </Routes>
+
       <ToastContainer
         position="top-center"
         autoClose={2000}
@@ -41,6 +44,7 @@ function App() {
         draggable
         pauseOnHover
       />
+      
     </>
   );
 }

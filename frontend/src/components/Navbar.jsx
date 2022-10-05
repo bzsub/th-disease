@@ -21,7 +21,7 @@ const Navbar = () => {
                 right:"0",
                 top:"0",
                 height:"80px",
-                zIndex:"5",
+                zIndex:"1",
                 display:"flex",
                 flexDirection:"row"
             }}

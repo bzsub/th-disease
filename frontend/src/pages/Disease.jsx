@@ -32,6 +32,7 @@ const Disease = () => {
 
     const [isSaveBlockViewable, setIsSaveBlockViewable] = useState(false)
 
+
     const { get, post, del, update } = todoApi();
 
     const getAllDiseases = async () => {
@@ -41,7 +42,9 @@ const Disease = () => {
     }
 
     const getAllRisks = async () => {
+        
         const response = await get(`/risk`)
+        
         setRiskList(response.data)
     }
 
