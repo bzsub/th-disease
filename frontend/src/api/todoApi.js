@@ -12,14 +12,15 @@ export const todoApi = () => {
 
   const post = async (path, data, dataType) => {
     try {
-      const response = await instance.post(path, data, {});
+      const response = await instance.post(path, data, {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        }
+      });
       SuccessfulAlert(`${dataType} has been saved.`)
       return response;
     } catch (error) {
       if (error.response.status === 400) ErrorAlert("Name and description can't be empty")
-      if (error.response.status === 409) ErrorAlert("Name and description must be unique")
-      // console.log(error.response.status);
-      // console.log(error.response.data);
       return error.response;
     }
   };
@@ -27,7 +28,11 @@ export const todoApi = () => {
 
   const get = async (path) => {
     try {
-      const response = await instance.get(path, {});
+      const response = await instance.get(path, {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        }
+      });
       return response;
     } catch (error) {
       // console.log(error.response.status);
@@ -39,12 +44,14 @@ export const todoApi = () => {
 
   const del = async (path, dataType) => {
     try {
-      const response = await instance.delete(path, {});
+      const response = await instance.delete(path, {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        }
+      });
       SuccessfulAlert(`${dataType} has been deleted.`)
       return response;
     } catch (error) {
-      // console.log(error.response.status);
-      // console.log(error.response.data);
       ErrorAlert(`Ooops... Couldn't delete the ${dataType}`)
       return error.response;
     }
@@ -53,12 +60,16 @@ export const todoApi = () => {
 
   const update = async (path, data, dataType) => {
     try {
-      const response = await instance.patch(path, data, {});
+      const response = await instance.patch(path, data, {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        }
+      });
       SuccessfulAlert(`${dataType} has been updated.`)
       return response;
     } catch (error) {
       if (error.response.status === 400) ErrorAlert("Name and description can't be empty")
-      if (error.response.status === 409) ErrorAlert("Name and description must be unique")
+      if (error.response.status === 409) ErrorAlert("Name or description already taken")
       // console.log(error.response.status);
       // console.log(error.response.data);
       return error.response;

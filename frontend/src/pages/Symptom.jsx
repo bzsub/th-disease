@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 import { todoApi } from "../api/todoApi";
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Typography from '@mui/material/Typography';
@@ -25,7 +22,7 @@ import Dialog from '../components/Dialog'
 
 const Symptom = () => {
     // constant for the alert message
-    const DATA_TYPE="Symptom"
+    const dataType="Symptom"
 
     const [symptomList, setSymptomList] = useState([])
     const [search, setSearch] = useState("")
@@ -44,7 +41,7 @@ const Symptom = () => {
     }
 
     const saveNewSymptom = async () => {
-        const response = await post(`/symptom`, {name:inputName,description:inputDescription}, DATA_TYPE)
+        const response = await post(`/symptom`, {name:inputName,description:inputDescription}, dataType)
         if (response.status === 200) {
             getAllSymptoms()
             resetInputs()
@@ -52,12 +49,12 @@ const Symptom = () => {
     } 
     
     const deleteSymptomById = async (symptom_id) => {
-        const response = await del(`/symptom/${symptom_id}`, DATA_TYPE)
+        const response = await del(`/symptom/${symptom_id}`, dataType)
         if (response.status === 200) getAllSymptoms()
     }
 
     const updateSymptom = async () => { 
-        const response = await update(`/symptom/${inputId}`, {name:inputName, description: inputDescription}, DATA_TYPE)
+        const response = await update(`/symptom/${inputId}`, {name:inputName, description: inputDescription}, dataType)
         if (response.status === 200) {
             resetInputs()
             getAllSymptoms()
@@ -151,7 +148,7 @@ const Symptom = () => {
                         inputId ? 
                         <TableRow>
 
-                            <TableCell colspan="4" style={{ "text-align": "center" }}>
+                            <TableCell colSpan="4" style={{ "text-align": "center" }}>
                                 <AddIcon sx={{fontSize:"3rem",border:"3px solid black", borderRadius:"50%"}} onClick={resetInputs}/>
                             </TableCell>
                             
@@ -174,17 +171,6 @@ const Symptom = () => {
                 </Table>
             </TableContainer>
 
-            <ToastContainer
-                position="top-center"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
         </Container>
     )
 }

@@ -2,10 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 import { todoApi } from "../api/todoApi";
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-
 import NewDisease from '../components/NewDisease';
 
 import TextField from '@mui/material/TextField';
@@ -26,7 +22,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const Disease = () => {
     // constant for the alert message
-    const DATA_TYPE="Disease"
+    const dataType="Disease"
 
     const [diseaseList, setDiseaseList] = useState([])
     const [riskList, setRiskList] = useState([])
@@ -55,17 +51,17 @@ const Disease = () => {
     }
 
     const saveDisease = async (name, description, risks, symptoms) => {
-        const response = await post(`/disease`, {name, description, risks, symptoms}, DATA_TYPE)
+        const response = await post(`/disease`, {name, description, risks, symptoms}, dataType)
         if (response.status === 200) getAllDiseases()
     } 
     
     const deleteDisease = async (disease_id) => {
-        const response = await del(`/disease/${disease_id}`, DATA_TYPE)
+        const response = await del(`/disease/${disease_id}`, dataType)
         if (response.status === 200) getAllDiseases()
     }
 
     const updateDisease = async (disease_id, name, description, risks, symptoms) => {
-        const response = await update(`/disease/${disease_id}`,{name, description, risks, symptoms}, DATA_TYPE)
+        const response = await update(`/disease/${disease_id}`,{name, description, risks, symptoms}, dataType)
         if (response.status === 200) getAllDiseases()
     }
     
@@ -198,18 +194,6 @@ const Disease = () => {
                 </Table>
             </TableContainer>
             
-                            
-            <ToastContainer
-                position="top-center"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
         </Container>
     )
 }

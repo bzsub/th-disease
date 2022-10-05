@@ -1,6 +1,6 @@
 # DISEASE UI
 
-This is a simple UI where you can assign risks and symptomps to disesases.
+This is a simple UI where you can assign risks and symptoms to diseases.
 
 ## Technologies Used
 

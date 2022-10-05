@@ -26,33 +26,33 @@ const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease,
     const [searchRisk, setSearchRisk] = useState("")
     const [searchSymptom, setSearchSymptom] = useState("")
     
-    const addOneRisk = (riskName) => {
+    const addOneRisk = riskName => {
         if (!riskName) return ErrorAlert("Risk doesn't exist")
         if (diseaseRiskList.includes(riskName)) return ErrorAlert("the disease already has that risk")
         setDiseaseRiskList([...diseaseRiskList,riskName])
     }
 
-    const deleteOneRisk = (riskName) => { 
+    const deleteOneRisk = riskName => { 
         setDiseaseRiskList([...diseaseRiskList].filter(risk => risk !== riskName))
     }
 
-    const addOneSymptom = (symptomName) => {
+    const addOneSymptom = symptomName => {
         if (!symptomName) return ErrorAlert("Symptom doens't exist")
         if (diseaseSymptomList.includes(symptomName)) return ErrorAlert("the disease already has that symptom")
         setDiseaseSymptomList([...diseaseSymptomList,symptomName])
     }
     
-    const deleteOneSymptom = (symptomName) => { 
+    const deleteOneSymptom = symptomName => { 
         setDiseaseSymptomList([...diseaseSymptomList].filter(symptom => symptom !== symptomName))
     }
 
-    const handleUpdateDisease = (disease_id) => {
+    const handleUpdateDisease = disease_id => {
         const riskIdArray = riskList.filter(risk => diseaseRiskList.includes(risk.name)).map(riskObj => riskObj._id)
         const symptomIdArray = symptomList.filter(symptom => diseaseSymptomList.includes(symptom.name)).map(symptomObj => symptomObj._id)
         updateDisease(disease_id, diseaseName, diseaseDescription, riskIdArray, symptomIdArray )
     }
 
-    const handleDeleteDisease = (disease_id) => {
+    const handleDeleteDisease = disease_id => {
         deleteDisease(disease_id)
     }
 
