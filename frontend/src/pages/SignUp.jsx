@@ -1,108 +1,110 @@
 import React, { useEffect, useState } from 'react'
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../providers/auth";
+
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { Link } from "react-router-dom";
-import { useAuth } from "../providers/auth";
-import { useNavigate } from "react-router-dom";
-import { ErrorAlert } from "../utils/AlertMessages";
+import Button from '@mui/material/Button';
+
 
 export default function SignUp() {
+
     // constant for the alert message
     const dataType="signUp"
 
     const navigate = useNavigate()
+    
+    const { signUp, user } = useAuth();
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [passwordAgain, setPasswordAgain] = useState("")
 
-    const { signUp, user } = useAuth();
     useEffect(() => {
         if (user?.data) navigate("/diseases")
         // eslint-disable-next-line
     },[user])
 
-    const handleSignUp = async () => { 
-        if (!email || !password || password !== passwordAgain) ErrorAlert("The passwords must match"); 
-        else signUp(email, password, dataType) 
-    }
-
     return (
-        <Container component="main" maxWidth="xs" sx={{pt:8}}>
-            <CssBaseline />
-            <Box
-            sx={{
-                marginTop: 8,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
-            >
-            <Typography component="h1" variant="h5">
-                Sign up
-            </Typography>
-            <Box component="form" sx={{ mt: 3 }}>
-                <Grid container spacing={2}>
+
+        <Container component="main" maxWidth="xs" >
+
+            <Grid container spacing={2} sx={{mt:20}}>
+
                 <Grid item xs={12}>
-                        <TextField
+                    <Typography 
+                        component="h1" 
+                        variant="h4" 
+                        sx={{textAlign:"center",mb:3}}
+                    >
+                        Sign up
+                    </Typography>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <TextField
                         fullWidth
                         label="Email Address"
                         autoComplete="email"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
+                    />
+                </Grid>
+
+                <Grid item xs={12}>
+                    <TextField
                         fullWidth
                         label="Password"
                         type="password"
                         autoComplete="new-password"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
+                    />
+                </Grid>
+
+                <Grid item xs={12}>
+                    <TextField
                         fullWidth
                         label="Password Again"
                         type="password"
                         value={passwordAgain}
                         onChange={e => setPasswordAgain(e.target.value)}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControlLabel
+                    />
+                </Grid>
+
+                <Grid item xs={12}>
+                    <FormControlLabel
                         control={<Checkbox color="primary" />}
                         label="I want to receive inspiration, marketing promotions and updates via email."
-                        />
-                    </Grid>
+                    />
                 </Grid>
-                <Button
-                    fullWidth
-                    variant="outlined"
-                    sx={{ mt: 3, mb: 2, py: 1 }}
-                    onClick={handleSignUp}
+
+                <Grid item xs={12}>
+                    <Button
+                        fullWidth
+                        variant="outlined"
+                        sx={{mt:3,mb:2,py:1}}
+                        onClick={() => signUp(email, password, passwordAgain, dataType) }
+                    >
+                        Sign Up
+                    </Button>
+                </Grid>
+
+                <Grid item 
+                    sx={{textAlign:"right",width:"100%"}}
                 >
-                    Sign Up
-                </Button>
-                <Grid container justifyContent="flex-end">
-                    <Grid item>
-                        <Link to={'/login'}>
+                    <Link to={'/login'}>
                         Already have an account? Log in
-                        </Link>
-                    </Grid>
+                    </Link>
                 </Grid>
-            </Box>
-            </Box>
-            
+
+            </Grid>
+         
         </Container>
     );
 }

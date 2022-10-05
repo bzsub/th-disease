@@ -1,7 +1,9 @@
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const alertSetup = {
+
     position: "top-center",
     autoClose: 2000,
     hideProgressBar: false,
@@ -10,6 +12,7 @@ const alertSetup = {
     draggable: true,
     progress: undefined,
 }
+
 
 const SuccessfulAlert = alertMessage => toast.success( alertMessage, alertSetup );
 

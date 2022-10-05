@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -10,15 +11,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function AlertDialogSlide({buttonText, alertText, onAccept}) {
+
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClickOpen = () => setOpen(true);
+  
+  const handleClose = () => setOpen(false);
 
   const handleAccept = () => {
     onAccept()
@@ -26,23 +24,35 @@ export default function AlertDialogSlide({buttonText, alertText, onAccept}) {
   }
 
   return (
+
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        {buttonText}
-      </Button>
-      <Dialog
-        open={open}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={handleClose}
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle>{alertText}</DialogTitle>
+
+        <Button variant="outlined" onClick={handleClickOpen}>
+            {buttonText}
+        </Button>
+
+        <Dialog
+            open={open}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleClose}
+            aria-describedby="alert-dialog-slide-description"
+        >
+
+        <DialogTitle>
+            {alertText}
+        </DialogTitle>
+
         <DialogActions>
-          <Button onClick={handleAccept}>Yes</Button>
-          <Button onClick={handleClose}>No</Button>
+
+            <Button onClick={handleAccept}>Yes</Button>
+
+            <Button onClick={handleClose}>No</Button>
+
         </DialogActions>
+
       </Dialog>
+
     </>
   );
 }

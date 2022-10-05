@@ -1,18 +1,22 @@
 import React from 'react'
-import AppBar from '@mui/material/AppBar';
-import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../providers/auth';
-import { SuccessfulAlert } from "../utils/AlertMessages"
-import Typography from '@mui/material/Typography';
+import { SuccessfulAlert } from "../utils/AlertMessages";
+
+import AppBar from '@mui/material/AppBar';
+import Button from "@mui/material/Button";
 
 
 const Navbar = () => {
+
     const navigate = useNavigate();
+
     const { logout, user } = useAuth();
 
     return (
+
         <AppBar 
+
             style={{
                 background:"#fff",
                 position:"fixed", 
@@ -26,22 +30,46 @@ const Navbar = () => {
                 flexDirection:"row"
             }}
         >
-            <Button onClick={() => navigate("/diseases")}>diseases</Button>
-            <Button onClick={() => navigate("/risks")}>risks</Button>
-            <Button onClick={() => navigate("/symptoms")}>symptoms</Button>
+
+            <Button onClick={() => navigate("/diseases")}>
+                diseases
+            </Button>
+
+            <Button onClick={() => navigate("/risks")}>
+                risks
+            </Button>
+
+            <Button onClick={() => navigate("/symptoms")}>
+                symptoms
+            </Button>
+            
             {
                 user ? 
                 <>
-                    <Button onClick={()=>{SuccessfulAlert("You logged out");navigate("/");logout()}}>logout</Button>
-                    <Button sx={{marginLeft:"auto"}} onClick={() => navigate("/login")}>Welcome, {user.data.toString()}</Button>
+
+                    <Button onClick={()=>{SuccessfulAlert("You logged out");navigate("/");logout()}}>
+                        logout
+                    </Button>
+
+                    <Button sx={{marginLeft:"auto"}} onClick={() => navigate("/login")}>
+                        Welcome, {user.data.toString()}
+                    </Button>
 
                 </>
                 :
                 <>
-                    <Button onClick={() => navigate("/login")}>login</Button>
-                    <Button onClick={() => navigate("/signup")}>sign up</Button>
+
+                    <Button onClick={() => navigate("/login")}>
+                        login
+                    </Button>
+
+                    <Button onClick={() => navigate("/signup")}>
+                        sign up
+                    </Button>
+
                 </>
             }
+
         </AppBar>
     )
 }

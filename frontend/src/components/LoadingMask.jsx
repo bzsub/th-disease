@@ -6,14 +6,16 @@ import CircularProgress from '@mui/material/CircularProgress';
 const LoadingMask = ({isLoading}) => {
     
     return (
-    <>
-      <Backdrop
-        sx={{ color: '#fff', zIndex: "2" }}
-        open={isLoading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    </>
+        <>
+            <Backdrop
+                sx={{color:'#fff',zIndex:"2"}}
+                open={isLoading}
+            >
+                
+                <CircularProgress color="inherit" />
+
+            </Backdrop>
+        </>
   )
 }
 

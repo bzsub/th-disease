@@ -19,6 +19,12 @@ import Paper from '@mui/material/Paper';
 import AddIcon from '@mui/icons-material/Add';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import EditIcon from '@mui/icons-material/Edit';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+
 
 const Disease = () => {
     // constant for the alert message
@@ -32,13 +38,17 @@ const Disease = () => {
 
     const [isSaveBlockViewable, setIsSaveBlockViewable] = useState(false)
 
+    const [rowsPerPage, setRowsPerPage] = useState(5)
+
+    const [page, setPage] = useState(1)
+
 
     const { get, post, del, update } = todoApi();
 
     const getAllDiseases = async () => {
         const response = await get(`/disease`)
         //adding every disease object a toggleView key
-        setDiseaseList(response.data.map(disease => ({...disease, toggleView:false})))
+        setDiseaseList(response.data.map(disease => ({...disease, toggleView: false})))
     }
 
     const getAllRisks = async () => {
@@ -89,9 +99,7 @@ const Disease = () => {
     
 
     return (
-        <Container 
-            className="container" 
-            sx={{maxWidth:"1200px",padding:"8rem 0"}}
+        <Container sx={{maxWidth:"1200px",padding:"8rem 0"}}
         >
             <Typography 
                 variant="h1" 
@@ -129,7 +137,7 @@ const Disease = () => {
 
                     <TableBody>
                         {
-                            diseaseList && diseaseList.slice(0, 10).filter(disease => disease.name.includes(searchDisease)).map((disease,id) => 
+                            diseaseList && diseaseList.slice((page - 1) * rowsPerPage, page * rowsPerPage).filter(disease => disease.name.includes(searchDisease)).map((disease,id) => 
                             <React.Fragment key={id}>
                                 <TableRow key={id}> 
                                     <TableCell align="center">
@@ -171,6 +179,44 @@ const Disease = () => {
                             </React.Fragment>                      
                         )}
 
+                        <TableRow>
+                            <TableCell colSpan="5" sx={{textAlign:"right"}}>
+
+                                <Typography variant="p" >
+                                    Rows per page : 
+                                </Typography>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={rowsPerPage}
+                                    label="Age"
+                                    onChange={e => setRowsPerPage(e.target.value)}
+                                >
+                                    <MenuItem value={10}>5</MenuItem>
+                                    <MenuItem value={20}>10</MenuItem>
+                                    <MenuItem value={30}>20</MenuItem>
+                                    <MenuItem value={100}>100</MenuItem>
+                                </Select>
+
+                                <Typography variant="p" sx={{mx:3}}>
+                                    {(page - 1) * rowsPerPage + 1} - {Math.min(page * rowsPerPage,diseaseList.length)} of {diseaseList.length}
+                                </Typography>
+
+                                <Button sx={{p:0}} disabled={page===1} onClick={() => setPage(page - 1)}>
+                                    <KeyboardArrowLeftIcon/>
+                                </Button>
+
+                                <Typography variant="p" >
+                                    {page} 
+                                </Typography>
+
+                                <Button sx={{p:0}} disabled={(page*rowsPerPage > diseaseList.length)} onClick={()=>setPage(page + 1)}>
+                                    <KeyboardArrowRightIcon/>
+                                </Button>
+
+                            </TableCell>
+                        </TableRow>
+
                         <TableRow sx={{height:isSaveBlockViewable ? '200px' : 'auto'}}>
                             {
                                 isSaveBlockViewable ? 
@@ -182,8 +228,8 @@ const Disease = () => {
                                         saveDisease={saveDisease}
                                         deleteDisease={deleteDisease} 
                                         updateDisease={updateDisease}
-                                        isItUpdateView={false}
                                         setIsSaveBlockViewable={setIsSaveBlockViewable}
+                                        isItUpdateView={false}
                                     />
                                 </TableCell>
                                 : 

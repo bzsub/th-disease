@@ -6,7 +6,7 @@ const morgan = require("morgan");
 
 morgan.token("host", function (req, res) {
     return req.hostname;
-  });
+});
 
 const riskRoutes = require("./routes/risk");
 const symptomRoutes = require("./routes/symptom");
