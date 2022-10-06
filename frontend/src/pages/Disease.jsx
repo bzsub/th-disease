@@ -24,6 +24,8 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import EditIcon from '@mui/icons-material/Edit';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import TablePagination from '@mui/material/TablePagination';
+
 
 
 const Disease = () => {
@@ -40,7 +42,7 @@ const Disease = () => {
 
     const [rowsPerPage, setRowsPerPage] = useState(5)
 
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(0)
 
 
     const { get, post, del, update } = todoApi();
@@ -89,6 +91,14 @@ const Disease = () => {
             })
         )
     }
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+      };
+    
+      const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+      };
 
     useEffect(() => {
         getAllDiseases()
@@ -137,7 +147,7 @@ const Disease = () => {
 
                     <TableBody>
                         {
-                            diseaseList && diseaseList.slice((page - 1) * rowsPerPage, page * rowsPerPage).filter(disease => disease.name.includes(searchDisease)).map((disease,id) => 
+                            diseaseList && diseaseList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter(disease => disease.name.includes(searchDisease)).map((disease,id) => 
                             <React.Fragment key={id}>
                                 <TableRow key={id}> 
                                     <TableCell align="center">
@@ -180,40 +190,17 @@ const Disease = () => {
                         )}
 
                         <TableRow>
+                            
                             <TableCell colSpan="5" sx={{textAlign:"right"}}>
-
-                                <Typography variant="p" >
-                                    Rows per page : 
-                                </Typography>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={rowsPerPage}
-                                    label="Age"
-                                    onChange={e => setRowsPerPage(e.target.value)}
-                                >
-                                    <MenuItem value={10}>5</MenuItem>
-                                    <MenuItem value={20}>10</MenuItem>
-                                    <MenuItem value={30}>20</MenuItem>
-                                    <MenuItem value={100}>100</MenuItem>
-                                </Select>
-
-                                <Typography variant="p" sx={{mx:3}}>
-                                    {(page - 1) * rowsPerPage + 1} - {Math.min(page * rowsPerPage,diseaseList.length)} of {diseaseList.length}
-                                </Typography>
-
-                                <Button sx={{p:0}} disabled={page===1} onClick={() => setPage(page - 1)}>
-                                    <KeyboardArrowLeftIcon/>
-                                </Button>
-
-                                <Typography variant="p" >
-                                    {page} 
-                                </Typography>
-
-                                <Button sx={{p:0}} disabled={(page*rowsPerPage > diseaseList.length)} onClick={()=>setPage(page + 1)}>
-                                    <KeyboardArrowRightIcon/>
-                                </Button>
-
+                                <TablePagination
+                                    rowsPerPageOptions={[5, 10, 25]}
+                                    component="div"
+                                    count={diseaseList.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
+                                />
                             </TableCell>
                         </TableRow>
 
