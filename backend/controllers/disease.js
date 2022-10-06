@@ -13,9 +13,9 @@ const apiGetDiseases = async (req, res) => {
 }   
 
 const apiSaveDisease = async (req, res) => {
-    if ( !req.body.name || !req.body.description ) return res.sendStatus(400)
+    if ( !req.body.name || !req.body.description ) return res.status(400).send("Name and description can't be empty")
     const disease = await DiseaseService.saveDisease(req.body)
-    if (!disease) return res.sendStatus(409) 
+    if (!disease) return res.status(409).send("Name or description already taken") 
     res.status(200).json(disease); 
 }  
 

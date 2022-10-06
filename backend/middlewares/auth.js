@@ -6,12 +6,12 @@ const auth =
 
         const token = req.headers.authorization;
 
-        if (!token && block) return res.sendStatus(401);
+        if (!token && block) return res.status(401).send("Unauthorized. Please log in.");
 
         try {
             const decoded = jwt.verify(token, process.env.SECRET_KEY);
         } catch(err) {
-            if (err && block) return res.sendStatus(401);
+            if (err && block) return res.status(401).send("Unauthorized. Please log in.");
         }
         next()
     };

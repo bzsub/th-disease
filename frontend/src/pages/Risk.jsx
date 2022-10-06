@@ -55,7 +55,7 @@ const Risk = () => {
     } 
     
     const deleteRiskById = async (risk_id) => {
-        const response = await del(`/risk/${risk_id}`, 'deleted succesfuly', 'oops..something went wrong')
+        const response = await del(`/risk/${risk_id}`, dataType)
         if (response.status === 200) getAllRisks()
     }
 

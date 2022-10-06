@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
             setToken(response.data.token);
             localStorage.setItem("token", response.data.token);
             setUser(jwt(response.data.token));
-            SuccessfulAlert("Successful login.")
+            SuccessfulAlert(response.data.message)
 
         } catch (error) {
 
@@ -59,7 +59,7 @@ const AuthProvider = ({ children }) => {
                 setToken(response.data.token);
                 localStorage.setItem("token", response.data.token);
                 setUser(jwt(response.data.token));
-                SuccessfulAlert("Successful sign up")
+                SuccessfulAlert(response.data.message)
             } 
 
         } catch (error) {
