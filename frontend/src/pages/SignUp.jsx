@@ -11,6 +11,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 
+import Loading from "../components/LoadingMask";
+
 
 export default function SignUp() {
 

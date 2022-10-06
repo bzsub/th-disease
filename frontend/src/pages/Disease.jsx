@@ -26,6 +26,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import TablePagination from '@mui/material/TablePagination';
 
+import Loading from "../components/LoadingMask";
 
 
 const Disease = () => {
@@ -44,9 +45,11 @@ const Disease = () => {
 
     const [page, setPage] = useState(0)
 
+    const [isLoading, setIsLoading] = useState(false)
 
     const { get, post, del, update } = todoApi();
 
+    
     const getAllDiseases = async () => {
         const response = await get(`/disease`)
         //adding every disease object a toggleView key

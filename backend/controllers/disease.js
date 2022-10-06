@@ -23,7 +23,7 @@ const apiUpdateDisease = async (req, res) => {
     if ( !req.body.name || !req.body.description ) return res.sendStatus(400)
     if( !mongoose.Types.ObjectId.isValid(req.params.disease_id)) return res.sendStatus(400);
     const disease = await DiseaseService.updateDisease(req.params.disease_id, req.body)
-    if (!disease) return res.sendStatus(409) 
+    if (!disease) return res.status(409).send() // error  
     res.status(200).json(disease); 
 } 
 

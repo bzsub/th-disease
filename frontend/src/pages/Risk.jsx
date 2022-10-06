@@ -15,6 +15,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import AddIcon from '@mui/icons-material/Add';
+
 import Loading from "../components/LoadingMask";
 import Dialog from '../components/Dialog'
 
@@ -35,15 +36,13 @@ const Risk = () => {
 
     const [isLoading, setIsLoading] = useState(false)
 
-
     const { get, post, del, update } = todoApi();
+
 
     const getAllRisks = async () => {
         setIsLoading(true)
         const response = await get(`/risk`)
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 400);
+        setIsLoading(false)
         setRiskList(response.data)
     }
 

@@ -3,6 +3,8 @@ import jwt from "jwt-decode";
 import { SuccessfulAlert, ErrorAlert } from "../utils/AlertMessages"
 import config from "../app.config";
 import axios from "axios";
+import validator from 'validator';
+
 
 const AuthContext = createContext();
 
@@ -21,33 +23,32 @@ const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
 
+        if (!validator.isEmail(email)) return ErrorAlert("Wrong email format.")
+        if (password.length < 6) return ErrorAlert("Password must be 6 character long.")
+
         try {
 
             const response = await axios.post(LOGIN_URL,{email,password});
 
             setToken(response.data.token);
-
             localStorage.setItem("token", response.data.token);
-
             setUser(jwt(response.data.token));
-
             SuccessfulAlert("Successful login.")
 
         } catch (error) {
 
-            if (error.response.status === 400) ErrorAlert("Invalid email or password.")
-            if (error.response.status === 404) ErrorAlert("User not found.")
-
-            setToken(null);
-
+            ErrorAlert(error.response.data)
             localStorage.removeItem("token");
+            setToken(null);
         }
     };
 
 
     const signUp = async (email, password, passwordAgain) => {
 
-        if (!email || !password || password !== passwordAgain) ErrorAlert("The email and passwords can't be empty, and the passwords must match.")
+        if (!validator.isEmail(email)) return ErrorAlert("Wrong email format.")
+        if (password.length < 6) return ErrorAlert("Password must be 6 character long.")
+        if (password !== passwordAgain) return ErrorAlert("The passwords must match.")
 
         try {
 
@@ -56,21 +57,15 @@ const AuthProvider = ({ children }) => {
             if (response.status === 201) {   
 
                 setToken(response.data.token);
-
                 localStorage.setItem("token", response.data.token);
-
                 setUser(jwt(response.data.token));
-
                 SuccessfulAlert("Successful sign up")
             } 
 
         } catch (error) {
 
-            if (error.response?.status === 400) ErrorAlert("Invalid email or password.");
-            if (error.response?.status === 409) ErrorAlert("Email already in use.");
-
+            ErrorAlert(error.response.data)
             setToken(null);
-
             localStorage.removeItem("token");
         } 
     }

@@ -5,14 +5,14 @@ const validator = require("email-validator");
 
 
 const apiLogin = async (req, res) => {
-    const {email, password} = req.body;
-    if (!email || !password /* || !validator.validate(email) */) return res.status(400).send("Invalid email or password")
+    const { email, password } = req.body;
+    if (!email || !password /* || !validator.validate(email) || password.length < 6 */) return res.status(400).send("Invalid email or password")
 
     const user = await UserService.getUserByEmail(email)
-    if(!user) return res.status(404).send("User not found");
+    if(!user) return res.status(404).send("Wrong email or password");
 
     const validPassword = await bcrypt.compare(password, user.password)
-    if (!validPassword) return res.status(404).send("User not found");
+    if (!validPassword) return res.status(404).send("Wrong email or password");
 
     const token = jwt.sign(
         { data: user.email }, 
@@ -20,11 +20,11 @@ const apiLogin = async (req, res) => {
         { expiresIn: '1h' }
     )
         
-    res.status(200).json({ token });
+    res.status(200).json({ token, message: "Successful login." });
 }
 
 const apiSignUp = async (req, res) => {
-    const {email, password} = req.body;
+    const { email, password } = req.body;
     if (!email || !password /* || !validator.validate(email) */ ) return res.status(400).send("Invalid email or password")
 
     const user = await UserService.getUserByEmail(email)
@@ -42,7 +42,7 @@ const apiSignUp = async (req, res) => {
         { expiresIn: '1h' }
     )
 
-    res.status(201).json({ token })
+    res.status(201).json({ token, message: "Successful signup." })
 }
 
 

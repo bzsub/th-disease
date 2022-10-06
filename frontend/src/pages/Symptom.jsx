@@ -33,10 +33,14 @@ const Symptom = () => {
     const [inputName, setInputName] = useState("")
     const [inputDescription, setInputDescription] = useState("")
 
+    const [isLoading, setIsLoading] = useState(false)
+
     const { get, post, del, update } = todoApi();
 
     const getAllSymptoms = async () => {
+        setIsLoading(true)
         const response = await get(`/symptom`)
+        setIsLoading(false)
         setSymptomList(response.data)
     }
 
