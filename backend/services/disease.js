@@ -37,9 +37,19 @@ const deleteDisease = async (disease_id) => {
     }
 }
 
+const deleteOneRiskOrSymptom = async (riskOrSymptom, riskOrSymptomId) => {
+    try {
+        const diseases = await Disease.updateMany({riskOrSymptom: riskOrSymptomId},{$pull: {riskOrSymptom: riskOrSymptomId}});
+        return diseases 
+    } catch (error) {
+        console.log(`Could not get diseases ${ error }`)
+    }
+}
+
 module.exports = { 
     getDiseases,
     saveDisease,
     updateDisease,
     deleteDisease,
+    deleteOneRiskOrSymptom,
 }

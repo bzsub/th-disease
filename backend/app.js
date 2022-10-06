@@ -14,10 +14,8 @@ const diseaseRoutes = require("./routes/disease");
 const authRoutes = require("./routes/auth");
 
 
-app.use(cors());
+app.use(cors()); // enables cross-origin resource sharing
 app.use(express.json()); // parse data from req.body
-// app.use(morgan({format: 'POST body length in bytes :req.body', immediate: true}))
-
 app.use(morgan(":method :url :status - HOST: :host  - :response-time ms")); // use this middleware to log data on every request
 
 
