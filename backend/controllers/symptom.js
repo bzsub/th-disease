@@ -33,7 +33,7 @@ const apiUpdateSymptom = async (req, res) => {
 } 
 
 const apiDeleteSymptom = async (req, res) => {
-    
+
     if( !mongoose.Types.ObjectId.isValid(req.params.symptom_id) ) return res.sendStatus(400);
     
     const symptom = await SymptomService.deleteSymptom(req.params.symptom_id)

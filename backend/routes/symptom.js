@@ -1,14 +1,15 @@
 const router = require("express").Router();
 const SymptomControl = require("../controllers/symptom");
+const auth = require("../middlewares/auth");
 
 
-router.get("/", SymptomControl.apiGetSymptoms)
+router.get("/", auth({ block: false }), SymptomControl.apiGetSymptoms)
 
-router.post("/", SymptomControl.apiSaveSymptom)
+router.post("/", auth({ block: true }), SymptomControl.apiSaveSymptom)
 
-router.patch("/:symptom_id", SymptomControl.apiUpdateSymptom);
+router.patch("/:symptom_id", auth({ block: true }), SymptomControl.apiUpdateSymptom);
 
-router.delete("/:symptom_id", SymptomControl.apiDeleteSymptom);
+router.delete("/:symptom_id", auth({ block: true }), SymptomControl.apiDeleteSymptom);
 
 
 module.exports = router;

@@ -29,6 +29,7 @@ export const todoApi = () => {
         } catch (error) {
             if (error.response.status === 400) ErrorAlert("Name and description can't be empty")
             if (error.response.status === 409) ErrorAlert("Name and description must be unique")
+            if (error.response.status === 401) ErrorAlert("Unauthorized. Please log in.")
             return error.response;
         }
     };
@@ -66,7 +67,7 @@ export const todoApi = () => {
             return response;
 
         } catch (error) {
-            ErrorAlert(`Ooops... Couldn't delete the ${dataType}`)
+            if (error.response.status === 401) ErrorAlert("Unauthorized. Please log in.")
             return error.response;
         }
     };
@@ -89,6 +90,7 @@ export const todoApi = () => {
         } catch (error) {
             if (error.response.status === 400) ErrorAlert("Name and description can't be empty")
             if (error.response.status === 409) ErrorAlert("Name or description already taken")
+            if (error.response.status === 401) ErrorAlert("Unauthorized. Please log in.")
             // console.log(error.response.status);
             // console.log(error.response.data);
             return error.response;
