@@ -22,8 +22,7 @@ function App() {
   return (
     <>
 
-      <Navbar />
-
+      <Navbar/>
       <Routes>
         <Route path="/diseases" element={<Disease />} />
         <Route path="/risks" element={<Risk />} />

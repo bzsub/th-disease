@@ -5,15 +5,18 @@ import Button from "@mui/material/Button";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
-import Dialog from '../components/Dialog'
+import AddIcon from '@mui/icons-material/Add';
+import Dialog from '../Dialog'
 
-import { ErrorAlert } from "../utils/AlertMessages"
+import { ErrorAlert } from "../../utils/AlertMessages"
 
 
-const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease, updateDisease, isItUpdateView, setIsSaveBlockViewable}) => {
+const ToggleRow = ({ id, disease, riskList, symptomList, saveDisease, deleteDisease, updateDisease, isItUpdateView, setIsSaveBlockViewable }) => {
 
     const [diseaseName, setDiseaseName] = useState("")
     const [diseaseDescription, setDiseaseDescription] = useState("")
@@ -25,6 +28,7 @@ const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease,
 
     const [searchRisk, setSearchRisk] = useState("")
     const [searchSymptom, setSearchSymptom] = useState("")
+    
     
     const addOneRisk = riskName => {
         if (!riskName) return ErrorAlert("Risk doesn't exist")
@@ -74,7 +78,8 @@ const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease,
     
 
     return (
-        <>
+        <TableRow key={id} sx={{height:'200px'}}> 
+            <TableCell colSpan="5">
             <Box sx={{display:'flex',flexDirection:"column",justifyContent:"space-around"}}>
 
                 <Box sx={{ flexGrow: 1 }}>
@@ -127,7 +132,7 @@ const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease,
                                     />
                                 </Grid>
                                 <Grid item xs={2} sx={{display:"flex", alignItems:"center"}}>
-                                    <SaveIcon fontSize="large" sx={{cursor:"pointer"}} onClick={() => addOneRisk( finalSearchRisk )}/>
+                                    <AddIcon fontSize="large" sx={{cursor:"pointer"}} onClick={() => addOneRisk( finalSearchRisk )}/>
                                 </Grid>
                             </Grid>
                             
@@ -164,7 +169,7 @@ const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease,
                                     />
                                 </Grid>
                                 <Grid item xs={2} sx={{display:"flex", alignItems:"center"}}>
-                                    <SaveIcon sx={{cursor:"pointer"}} fontSize="large" onClick={() => addOneSymptom( finalSearchSymptom )}/>
+                                    <AddIcon sx={{cursor:"pointer"}} fontSize="large" onClick={() => addOneSymptom( finalSearchSymptom )}/>
                                 </Grid>
                             </Grid>   
                             <Grid container spacing={2} sx={{my:2,ml:1}}>
@@ -201,8 +206,9 @@ const NewDisease = ({disease, riskList, symptomList, saveDisease, deleteDisease,
                     </>
                 }
             </Box>
-        </>
+        </TableCell>                   
+    </TableRow> 
     )
 }
 
-export default NewDisease
+export default ToggleRow

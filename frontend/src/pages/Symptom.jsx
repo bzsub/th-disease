@@ -15,9 +15,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import AddIcon from '@mui/icons-material/Add';
+import Head from "../components/tableComponents/Head"
 
+
+import Pagination from '../components/tableComponents/Pagination';
+
+import Loading from "../components/LoadingMask";
 import Dialog from '../components/Dialog'
-
+import { useAuth } from '../providers/auth';
+import SearchBar from "../components/SearchBar"
 
 
 const Symptom = () => {
@@ -33,9 +39,15 @@ const Symptom = () => {
     const [inputName, setInputName] = useState("")
     const [inputDescription, setInputDescription] = useState("")
 
+    const [page, setPage] = useState(0)
+    const [rowsPerPage, setRowsPerPage] = useState(5)
+
     const [isLoading, setIsLoading] = useState(false)
 
     const { get, post, del, update } = todoApi();
+
+    const { user } = useAuth();
+
 
     const getAllSymptoms = async () => {
         setIsLoading(true)
@@ -78,6 +90,15 @@ const Symptom = () => {
         setInputDescription("")
     }
 
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+      };
+    
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
     useEffect(() => {
         getAllSymptoms()
     //eslint-disable-next-line
@@ -87,86 +108,99 @@ const Symptom = () => {
     return (
         <Container sx={{maxWidth:"1200px",padding:"8rem 0"}}>
 
+            <Loading isLoading={isLoading}/>
+
             <Typography variant="h1" sx={{fontSize:"3rem",textAlign:"center"}}>
                     Symptoms 
             </Typography>
 
-            <Autocomplete
-                onChange={(event, value) => setSearch(value)}
-                sx={{width:"50%",margin:"3rem auto 0"}}
-                options={symptomList.map(disease => disease.name)}
-                renderInput={params => <TextField {...params} label="search for a symptom" value={search} onChange={e => setSearch(e.target.value)}/> }
+            <SearchBar 
+                labelText="symptom"
+                list={symptomList} 
+                search={search}
+                setSearch={setSearch}
             />
         
             <TableContainer component={Paper} sx={{marginTop:"3rem"}}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow >
-                            <TableCell sx={{textTransform: "uppercase",borderBottom:"2px solid black",fontSize:"1.2rem",fontWeight:"600",textAlign:"left"}}>name</TableCell>
-                            <TableCell sx={{textTransform: "uppercase",borderBottom:"2px solid black",fontSize:"1.2rem",fontWeight:"600",textAlign:"left"}}>description</TableCell>
-                            <TableCell sx={{width:"3rem",borderBottom:"2px solid black"}}></TableCell>
-                            <TableCell sx={{width:"3rem",borderBottom:"2px solid black"}}></TableCell>
-                        </TableRow>
-                    </TableHead>
+                    <Head list={["name","description","",""]}/>
                     <TableBody>
-                    {symptomList && symptomList.slice(0, 10).filter(symptom => symptom.name.includes(search)).map((symptom,id) => (
+                    {symptomList && symptomList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter(symptom => symptom.name.includes(search)).map((symptom,id) => (
                         <TableRow
                             key={id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                         {
+                            
                             inputId === symptom._id ? 
                             <>
                                 <TableCell component="th" scope="row">
                                     <TextField value={inputName} onChange={e => setInputName(e.target.value)} />
                                 </TableCell>
-                                <TableCell align="left">
+                                <TableCell align="center">
                                     <TextField value={inputDescription} onChange={e => setInputDescription(e.target.value)}/>
                                 </TableCell>
-                                <TableCell align="left" sx={{width:"1rem"}}>
-                                    <Button variant="outlined" onClick={updateSymptom}>save</Button>
+                                
+                                <TableCell align="center" sx={{width:"1rem"}}>
+                                    {user &&<Button variant="outlined" onClick={updateSymptom}>save</Button>}
                                 </TableCell>
-                                <TableCell align="left" sx={{width:"1rem"}}>
-                                    <Button variant="outlined" onClick={resetInputs}>cancel</Button>
+                                <TableCell align="center" sx={{width:"1rem"}}>
+                                    {user &&<Button variant="outlined" onClick={resetInputs}>cancel</Button>}
                                 </TableCell>
+                                   
+                                
                             </> :
                             <>
-                                <TableCell component="th" scope="row">
+                                <TableCell align="center">
                                     {symptom.name}
                                 </TableCell>
-                                <TableCell align="left">
+                                <TableCell align="center">
                                     {symptom.description}
                                 </TableCell>
-                                <TableCell align="left" sx={{width:"1rem"}}>
-                                    <Button variant="outlined" onClick={() => startInputs(symptom)} disabled={inputId}>edit</Button>
+                                
+                                <TableCell align="center" sx={{width:"1rem"}}>
+                                    {user &&<Button variant="outlined" onClick={() => startInputs(symptom)} disabled={inputId}>edit</Button>}
                                 </TableCell>
-                                <TableCell align="left" sx={{width:"1rem"}}>
-                                    <Dialog buttonText={"delete"} alertText={"Are you sure you want to delete this symptom?"} onAccept={() => deleteSymptomById(symptom._id)}/>
+                                <TableCell align="center" sx={{width:"1rem"}}>
+                                    {user &&<Dialog buttonText={"delete"} alertText={"Are you sure you want to delete this symptom?"} onAccept={() => deleteSymptomById(symptom._id)}/>}
                                 </TableCell>
+                            
+                                
                             </>
                         }
                         
                         </TableRow>
                     ))}
+                    <Pagination 
+                        diseaseList={symptomList} 
+                        page={page} 
+                        rowsPerPage={rowsPerPage} 
+                        handleChangePage={handleChangePage} 
+                        handleChangeRowsPerPage={handleChangeRowsPerPage}
+                    />
                     { 
+                        !user ? 
+                        <>
+                        </>
+                        :
                         inputId ? 
                         <TableRow>
 
                             <TableCell colSpan="4" style={{ "text-align": "center" }}>
-                                <AddIcon sx={{fontSize:"3rem",border:"3px solid black", borderRadius:"50%"}} onClick={resetInputs}/>
+                                <AddIcon sx={{fontSize:"3rem"}} onClick={resetInputs}/>
                             </TableCell>
                             
                         </TableRow> 
                         :
                         <TableRow>
-                            <TableCell component="th" scope="row">
+                            <TableCell align="center">
                                 <TextField value={inputName} onChange={e => setInputName(e.target.value)} />
                             </TableCell>
-                            <TableCell align="left">
+                            <TableCell align="center">
                                 <TextField value={inputDescription} onChange={e => setInputDescription(e.target.value)}/>
                             </TableCell>
-                            <TableCell align="left" sx={{width:"1rem"}}></TableCell>
-                            <TableCell align="left" sx={{width:"1rem"}}>
+                            <TableCell align="center" sx={{width:"1rem"}}></TableCell>
+                            <TableCell align="center" sx={{width:"1rem"}}>
                                 <Button variant="outlined" onClick={saveNewSymptom}>save</Button>
                             </TableCell>
                         </TableRow>

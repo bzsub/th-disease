@@ -20,15 +20,15 @@ const apiSaveDisease = async (req, res) => {
 }  
 
 const apiUpdateDisease = async (req, res) => {
-    if ( !req.body.name || !req.body.description ) return res.sendStatus(400)
-    if( !mongoose.Types.ObjectId.isValid(req.params.disease_id)) return res.sendStatus(400);
+    if ( !req.body.name || !req.body.description ) return res.status(400).send("Name and description can't be empty")
+    if( !mongoose.Types.ObjectId.isValid(req.params.disease_id)) return res.status(400).send("Wrong disease id")
     const disease = await DiseaseService.updateDisease(req.params.disease_id, req.body)
-    if (!disease) return res.status(409).send() // error  
+    if (!disease) return res.status(409).send("A disease with a same parameter already exist")
     res.status(200).json(disease); 
 } 
 
 const apiDeleteDisease = async (req, res) => {
-    if( !mongoose.Types.ObjectId.isValid(req.params.disease_id) ) return res.sendStatus(400);
+    if( !mongoose.Types.ObjectId.isValid(req.params.disease_id) ) return res.status(400).send("Wrong disease id")
     const disease = await DiseaseService.deleteDisease(req.params.disease_id)
     if (!disease) return res.sendStatus(409) 
     res.status(200).json(disease);    

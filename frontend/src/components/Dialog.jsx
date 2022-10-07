@@ -10,49 +10,41 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide({buttonText, alertText, onAccept}) {
 
-  const [open, setOpen] = React.useState(false);
+export default function AlertDialogSlide({ buttonText, alertText, onAccept }) {
 
-  const handleClickOpen = () => setOpen(true);
-  
-  const handleClose = () => setOpen(false);
+    const [open, setOpen] = React.useState(false);
 
-  const handleAccept = () => {
-    onAccept()
-    setOpen(false)
-  }
+    const handleClickOpen = () => setOpen(true);
+    
+    const handleClose = () => setOpen(false);
 
-  return (
+    const handleAccept = () => {
+        onAccept()
+        setOpen(false)
+    }
 
-    <>
+    return (
 
-        <Button variant="outlined" onClick={handleClickOpen}>
-            {buttonText}
-        </Button>
+        <>
+            <Button variant="outlined" onClick={handleClickOpen}>{buttonText}</Button>
 
-        <Dialog
-            open={open}
-            TransitionComponent={Transition}
-            keepMounted
-            onClose={handleClose}
-            aria-describedby="alert-dialog-slide-description"
-        >
+            <Dialog
+                open={open}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClose}
+                aria-describedby="alert-dialog-slide-description"
+            >
 
-        <DialogTitle>
-            {alertText}
-        </DialogTitle>
+                <DialogTitle>{alertText}</DialogTitle>
 
-        <DialogActions>
+                <DialogActions>
+                    <Button onClick={handleAccept}>Yes</Button>
+                    <Button onClick={handleClose}>No</Button>
+                </DialogActions>
 
-            <Button onClick={handleAccept}>Yes</Button>
-
-            <Button onClick={handleClose}>No</Button>
-
-        </DialogActions>
-
-      </Dialog>
-
-    </>
-  );
+            </Dialog>
+        </>
+    );
 }

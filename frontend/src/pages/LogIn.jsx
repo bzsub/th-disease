@@ -84,7 +84,6 @@ export default function LogIn() {
                 </Grid>
 
             </Grid>
-             
         </Container>
     );
 }
