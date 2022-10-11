@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { todoApi } from "../api/todoApi";
 
 import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from "@mui/material/Button";
@@ -11,12 +10,11 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import AddIcon from '@mui/icons-material/Add';
 import Head from "../components/tableComponents/Head"
-import { SuccessfulAlert, ErrorAlert } from "../utils/AlertMessages"
+
 
 
 

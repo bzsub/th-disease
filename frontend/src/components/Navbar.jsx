@@ -34,6 +34,7 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
+  console.log(user)
 
   return (
     <AppBar position="static">
@@ -105,7 +106,7 @@ const Navbar = () => {
                     </MenuItem>
                 }
                 {
-                    user || <MenuItem 
+                    !user && <MenuItem 
                         key={"signup"} 
                         onClick={() => {
                             handleCloseNavMenu();
@@ -116,7 +117,7 @@ const Navbar = () => {
                     </MenuItem>
                 }
                 { 
-                    user || <MenuItem 
+                    !user && <MenuItem 
                         key={"login"} 
                         onClick={() => {
                             handleCloseNavMenu();
